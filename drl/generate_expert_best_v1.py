@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
-"""Run EnergyPlus with rbc_scheduled_research/best_v1_7482eur RBC and write
-expert trajectories for behavioral cloning in train_drl.py.
+"""Run EnergyPlus with the best v3 adaptive RBC and write expert trajectories
+for behavioral cloning in train_drl.py.
 
 Normalization uses OBS_SPEC / ACTION_SPEC from train_drl.py so the JSON matches
 EnergyPlusEnv observation/action spaces.
 
-The exported observations now include:
+The exported observations include:
     - Zone occupancy (space{i}_occ)
     - Cyclical time features (hour_sin/cos, day_sin/cos, month_sin/cos)
     - 24 h rolling outdoor temperature
-    - Raw time metadata (_raw_hour, _raw_day, _raw_month, _raw_outdoor_temp)
-      so train_drl.load_expert_pairs can recompute features if needed.
+    - Raw time metadata for downstream recomputation
 
 Usage:
     cd drl
     python generate_expert_best_v1.py
 
 Output:
-    drl/expert_data_best_v1.json
-    drl/eplus_out_expert_best_v1/
+    drl/expert_data_best_v3.json
+    drl/eplus_out_expert/
 """
 
 from __future__ import annotations
@@ -40,7 +39,7 @@ _DRL_DIR = Path(__file__).resolve().parent
 _REPO_ROOT = _DRL_DIR.parent
 sys.path.insert(0, str(_REPO_ROOT / "rbc_scheduled_research"))
 
-from best_v1_7482eur import (  # noqa: E402
+from best_v3_adaptive_7409eur import (  # noqa: E402
     ACTUATORS,
     METERS,
     PARAMS,
@@ -53,8 +52,8 @@ from train_drl import ACTION_SPEC, OBS_SPEC  # noqa: E402
 
 IDF_FILE = _REPO_ROOT / "DOAS_wNeutralSupplyAir_wFanCoilUnits.idf"
 EPW_FILE = _REPO_ROOT / "FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw"
-EPLUS_OUT_DIR = _DRL_DIR / "eplus_out_expert_best_v1"
-EXPERT_JSON_PATH = _DRL_DIR / "expert_data_best_v1.json"
+EPLUS_OUT_DIR = _DRL_DIR / "eplus_out_expert"
+EXPERT_JSON_PATH = _DRL_DIR / "expert_data_best_v3.json"
 
 
 def _normalize_obs(obs: Dict[str, float]) -> Dict[str, float]:
@@ -84,11 +83,7 @@ def _normalize_action(action: Dict[str, float]) -> Dict[str, float]:
 
 def _collect_obs(api_obj: Any, handles: Dict[str, int], state: Any,
                  outdoor_temp_rolling_24h: float) -> Dict[str, float]:
-    """Collect raw sensor values and compute all derived features.
-
-    Returns a dict whose keys cover the full OBS_SPEC plus ``_raw_*``
-    metadata fields used by ``train_drl.load_expert_pairs``.
-    """
+    """Collect raw sensor values and compute all derived features."""
     def get_var(name: str, default: float = 0.0) -> float:
         h = handles.get(name)
         if h is None or h == -1:
@@ -133,7 +128,6 @@ def _collect_obs(api_obj: Any, handles: Dict[str, int], state: Any,
         "electricity_hvac": get_var("electricity_hvac"),
         "gas_total":        get_var("gas_total"),
 
-        # Cyclical time encoding
         "hour_sin":  math.sin(2.0 * math.pi * hour / 24.0),
         "hour_cos":  math.cos(2.0 * math.pi * hour / 24.0),
         "day_sin":   math.sin(2.0 * math.pi * (day - 1) / 7.0),
@@ -141,10 +135,8 @@ def _collect_obs(api_obj: Any, handles: Dict[str, int], state: Any,
         "month_sin": math.sin(2.0 * math.pi * (month - 1) / 12.0),
         "month_cos": math.cos(2.0 * math.pi * (month - 1) / 12.0),
 
-        # Rolling outdoor temperature (caller maintains the buffer)
         "outdoor_temp_rolling_24h": outdoor_temp_rolling_24h,
 
-        # Raw metadata for downstream recomputation
         "_raw_hour":         hour,
         "_raw_day":          day,
         "_raw_month":        month,
@@ -199,7 +191,6 @@ class ExpertTrajectoryController:
         if not self.handles:
             return
 
-        # Update rolling outdoor temperature buffer
         ot = self.get_variable("outdoor_temp", state)
         self._outdoor_temp_buf.append(ot)
 
@@ -250,7 +241,6 @@ class ExpertTrajectoryController:
         normalized_obs = _normalize_obs(raw_obs)
         normalized_action = _normalize_action(action_phys)
 
-        # Preserve raw metadata alongside the normalised observation
         normalized_obs["_raw_hour"]         = raw_obs["_raw_hour"]
         normalized_obs["_raw_day"]          = raw_obs["_raw_day"]
         normalized_obs["_raw_month"]        = raw_obs["_raw_month"]

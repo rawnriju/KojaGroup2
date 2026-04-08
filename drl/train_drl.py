@@ -1,22 +1,20 @@
 """
-train_drl.py — DRL agent with behavioral cloning pre-training + SAC fine-tuning.
+train_drl.py — DRL agent: behavioral cloning + SAC fine-tuning.
 
-Pipeline:
-    1. Define enriched observation & action spaces (OBS_SPEC / ACTION_SPEC)
-    2. Behavioral Cloning (BC) from expert trajectories
-    3. Evaluate BC policy for one year
-    4. Transfer BC weights into SAC (with GRU feature extractor) and fine-tune
+Pipeline (~1 hour total):
+    1. Behavioral Cloning (BC) from expert trajectories       [~5 min, no E+]
+    2. Transfer BC weights into SAC (GRU feature extractor)
+    3. SAC fine-tuning against EnergyPlus                     [~45 min]
+    4. Save final model to  models/sac_final/sac_final.zip
 
-Key improvements over the original template:
-    - Zone occupancy in observations (proactive CO2 / comfort management)
-    - Cyclical time encoding (hour, day-of-week, month via sin/cos)
-    - 24 h rolling outdoor temperature (enables proper S-class comfort bands)
-    - Frame-stacked observations processed by a GRU feature extractor
-    - Auto-tuned entropy coefficient, learning-rate schedule, deeper networks
-    - Longer & more robust training pipeline
+After training, evaluate separately:
+    python evaluate_drl.py
+    → produces  drl_output/eval/run_N/eplusout.csv   (for visualize_output.ipynb)
+    → produces  sac_eval_eplus_TIMESTAMP.csv          (RL-side log)
 
 IMPORTANT: after changing OBS_SPEC you MUST regenerate expert data:
     python generate_expert_best_v1.py
+    → produces  expert_data_best_v3.json
 """
 
 import os
@@ -29,7 +27,6 @@ import pandas as pd
 import torch
 from stable_baselines3 import SAC
 from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.policies import ActorCriticPolicy
 from imitation.algorithms import bc
 from imitation.data.types import Transitions
@@ -44,15 +41,14 @@ from feature_extractors import GRUFeatureExtractor
 
 IDF_FILE     = os.path.join("..", "DOAS_wNeutralSupplyAir_wFanCoilUnits.idf")
 WEATHER_FILE = os.path.join("..", "FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw")
-EXPERT_JSON  = os.path.join(os.path.dirname(__file__), "expert_data_best_v1.json")
+EXPERT_JSON  = os.path.join(os.path.dirname(__file__), "expert_data_best_v3.json")
 MODEL_DIR    = "models"
 TRAIN_OUT    = "drl_output/train"
-EVAL_OUT     = "drl_output/train_eval"
 
 
 # =========================================================================
 # 2. OBSERVATION SPACE — enriched with occupancy, cyclical time,
-#    and rolling outdoor temperature
+#    and rolling outdoor temperature  (31 features)
 # =========================================================================
 
 OBS_SPEC = {
@@ -119,6 +115,15 @@ ACTION_SPEC = {
 
 # =========================================================================
 # 4. SIMULATION + TRAINING SETTINGS
+#
+#    Original (simple MLP, 21-obs) ran in ~20 min.
+#    GRU + 31-obs + frame-stack adds ~2–3× overhead per step.
+#    With 300 K steps (same as original) and NO mid-training eval,
+#    expect ~40–60 min total.
+#
+#    The 12-hour runtime was caused by EvalCallback (removed):
+#    each eval ran a full E+ year (35 K steps) ×20 evaluations = 700 K
+#    extra steps that dwarfed the training itself.
 # =========================================================================
 
 TIMESTEP_INTERVAL = 15
@@ -131,11 +136,10 @@ GRU_LAYERS        = 2
 BC_EPOCHS         = 100
 BC_LR             = 5e-4
 
-SAC_FROZEN_STEPS  = 10_000
-SAC_TOTAL_STEPS   = 500_000
-SAC_BATCH_SIZE    = 512
-SAC_BUFFER_SIZE   = 500_000
-SAC_EVAL_FREQ     = 25_000
+SAC_FROZEN_STEPS  = 5_000           # frozen warm-up (same as original)
+SAC_TOTAL_STEPS   = 300_000         # same as original — ~8.5 years of sim
+SAC_BATCH_SIZE    = 256
+SAC_BUFFER_SIZE   = 300_000
 SAC_LEARNING_RATE = 3e-4
 
 
@@ -167,7 +171,6 @@ def _build_config(idf, weather, output_path, phase):
     }
 
 train_config = _build_config(IDF_FILE, WEATHER_FILE, TRAIN_OUT, "learn")
-eval_config  = _build_config(IDF_FILE, WEATHER_FILE, EVAL_OUT,  "test")
 
 
 # =========================================================================
@@ -182,11 +185,7 @@ def linear_schedule(initial_lr: float):
 
 
 def _compute_derived_features(raw_obs: dict) -> dict:
-    """Compute cyclical time and rolling outdoor temp for a single obs dict.
-
-    Used when post-processing expert trajectories that only contain
-    raw sensor values.
-    """
+    """Compute cyclical time from ``_raw_*`` metadata keys."""
     hour  = raw_obs.get("_raw_hour", 0.0)
     day   = raw_obs.get("_raw_day", 1.0)
     month = raw_obs.get("_raw_month", 1.0)
@@ -201,14 +200,7 @@ def _compute_derived_features(raw_obs: dict) -> dict:
 
 
 def load_expert_pairs(json_path, config, n_frames=FRAME_STACK_N):
-    """Load expert data and produce frame-stacked observation arrays.
-
-    The expert JSON may contain two kinds of obs dicts:
-    * **New format** — keys already include ``hour_sin``, ``space1_occ``, etc.
-    * **Legacy format** — only the original 21 keys; derived features are
-      recomputed from ``_raw_hour``, ``_raw_day``, ``_raw_month`` metadata
-      that the updated ``generate_expert_best_v1.py`` embeds.
-    """
+    """Load expert data and produce frame-stacked observation arrays."""
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
@@ -217,7 +209,6 @@ def load_expert_pairs(json_path, config, n_frames=FRAME_STACK_N):
     obs_min  = config["rl_observation_min"]
     obs_max  = config["rl_observation_max"]
 
-    # ── Normalise obs to [-1, 1] using OBS_SPEC bounds ──────────────────
     def normalise(obs_dict):
         vec = []
         for i, k in enumerate(obs_keys):
@@ -230,35 +221,27 @@ def load_expert_pairs(json_path, config, n_frames=FRAME_STACK_N):
             vec.append(v)
         return vec
 
-    # ── First pass: collect per-step obs & actions ───────────────────────
     raw_outdoor_temps = []
     obs_dicts = []
     for row in data:
         obs_d = dict(row["obs"])
-
-        # If legacy format, compute derived features
         if "hour_sin" not in obs_d and "_raw_hour" in obs_d:
             _compute_derived_features(obs_d)
-
         raw_outdoor_temps.append(obs_d.get("_raw_outdoor_temp",
                                            obs_d.get("outdoor_temp", 0.0)))
         obs_dicts.append(obs_d)
 
-    # ── Compute rolling outdoor temp and inject into obs ─────────────────
     outdoor_buf: deque = deque(maxlen=96)
     for i, obs_d in enumerate(obs_dicts):
         outdoor_buf.append(raw_outdoor_temps[i])
-        rolling = sum(outdoor_buf) / len(outdoor_buf)
-        obs_d["outdoor_temp_rolling_24h"] = rolling
+        obs_d["outdoor_temp_rolling_24h"] = sum(outdoor_buf) / len(outdoor_buf)
 
-    # ── Build numpy arrays ───────────────────────────────────────────────
     obs_list = [normalise(d) for d in obs_dicts]
     act_list = [[row["action"][k] for k in act_keys] for row in data]
 
-    obs = np.array(obs_list, dtype=np.float32)
+    obs  = np.array(obs_list, dtype=np.float32)
     acts = np.array(act_list, dtype=np.float32)
 
-    # ── Frame-stack ──────────────────────────────────────────────────────
     if n_frames > 1:
         stacked = []
         buf: deque = deque(maxlen=n_frames)
@@ -271,40 +254,6 @@ def load_expert_pairs(json_path, config, n_frames=FRAME_STACK_N):
         obs = np.array(stacked, dtype=np.float32)
 
     return obs, acts
-
-
-# =========================================================================
-# Evaluation helper
-# =========================================================================
-
-def evaluate_policy(policy, env, csv_prefix="bc_full_year_test"):
-    obs_names = env.unwrapped.config["observations"]
-    act_names = env.unwrapped.config["rl_actions"]
-
-    obs, _ = env.reset()
-    done, truncated = False, False
-    rows = []
-
-    while not (done or truncated):
-        action, _ = policy.predict(obs, deterministic=True)
-        next_obs, reward, done, truncated, _ = env.step(action)
-
-        n_base = len(obs_names)
-        base_obs = obs[-n_base:] if len(obs) > n_base else obs
-        row = {name: float(base_obs[i]) for i, name in enumerate(obs_names)}
-        row.update({name: float(action[i]) for i, name in enumerate(act_names)})
-        row["reward"] = float(reward)
-        row["done"] = done
-        row["truncated"] = truncated
-        rows.append(row)
-        obs = next_obs
-
-    df = pd.DataFrame(rows)
-    ts = pd.Timestamp.now().strftime("%Y%m%d_%H%M%S")
-    path = f"{csv_prefix}_{ts}.csv"
-    df.to_csv(path, index=False)
-    print(f"Saved evaluation: {path}")
-    return df
 
 
 # =========================================================================
@@ -325,17 +274,24 @@ _fe_kwargs = {
 
 if __name__ == "__main__":
 
-    # --- Create environments (base + frame-stack wrapper) ---
+    import time as _time
+    _t0 = _time.time()
+
+    # --- Create training environment (base + frame-stack wrapper) ---
     base_train = EnergyPlusEnv(train_config)
     train_env  = Monitor(FrameStackWrapper(base_train, n_frames=FRAME_STACK_N))
 
-    base_eval  = EnergyPlusEnv(eval_config)
-    eval_env   = Monitor(FrameStackWrapper(base_eval, n_frames=FRAME_STACK_N))
-
     os.makedirs(MODEL_DIR, exist_ok=True)
+    os.makedirs(os.path.join(MODEL_DIR, "sac_final"), exist_ok=True)
 
-    # --- Step 1: Behavioral Cloning ---
+    # ── Step 1: Behavioral Cloning ─────────────────────────────────────
+    print("=" * 60)
+    print("  STEP 1 / 2 — Behavioral Cloning (no EnergyPlus needed)")
+    print("=" * 60)
+
     obs, acts = load_expert_pairs(EXPERT_JSON, train_config, n_frames=FRAME_STACK_N)
+    print(f"Loaded {len(obs)} expert transitions  "
+          f"(obs shape: {obs.shape}, acts shape: {acts.shape})")
 
     expert_data = Transitions(
         obs=obs,
@@ -367,26 +323,14 @@ if __name__ == "__main__":
 
     bc_trainer.train(n_epochs=BC_EPOCHS)
     bc_trainer.policy.save(os.path.join(MODEL_DIR, "bc_policy.pt"))
-    print("BC training complete.")
+    print(f"BC training complete  ({_time.time() - _t0:.0f}s elapsed)")
 
-    # --- Step 2: Evaluate BC policy ---
-    print("Evaluating BC policy for one year...")
-    evaluate_policy(bc_trainer.policy, eval_env, csv_prefix="bc_full_year_test")
-    eval_env.close()
-
-    # --- Step 3: SAC with GRU feature extractor + BC weight transfer ---
-    base_eval2 = EnergyPlusEnv(eval_config)
-    eval_env   = Monitor(FrameStackWrapper(base_eval2, n_frames=FRAME_STACK_N))
-
-    eval_callback = EvalCallback(
-        eval_env,
-        best_model_save_path=os.path.join(MODEL_DIR, "best_model_sac"),
-        log_path=os.path.join(MODEL_DIR, "eval_logs_sac"),
-        eval_freq=SAC_EVAL_FREQ,
-        deterministic=True,
-        render=False,
-        n_eval_episodes=1,
-    )
+    # ── Step 2: SAC with GRU + BC weight transfer ──────────────────────
+    print()
+    print("=" * 60)
+    print("  STEP 2 / 2 — SAC fine-tuning against EnergyPlus")
+    print(f"  {SAC_FROZEN_STEPS:,} frozen steps + {SAC_TOTAL_STEPS:,} training steps")
+    print("=" * 60)
 
     sac_model = SAC(
         policy="MlpPolicy",
@@ -394,13 +338,13 @@ if __name__ == "__main__":
         learning_rate=linear_schedule(SAC_LEARNING_RATE),
         batch_size=SAC_BATCH_SIZE,
         buffer_size=SAC_BUFFER_SIZE,
-        learning_starts=5_000,
+        learning_starts=1_000,
         gamma=0.99,
         tau=0.005,
         ent_coef="auto",
         target_entropy="auto",
         train_freq=1,
-        gradient_steps=2,
+        gradient_steps=1,
         verbose=1,
         tensorboard_log=os.path.join(MODEL_DIR, "tb_logs_sac"),
         policy_kwargs={
@@ -420,24 +364,42 @@ if __name__ == "__main__":
     sac_model.policy.actor.latent_pi.load_state_dict(bc_pi_sd)
     sac_model.policy.actor.mu.load_state_dict(bc_act_sd)
 
-    # Also initialise critic feature extractors from BC for faster convergence
     for net in [sac_model.policy.critic, sac_model.policy.critic_target]:
         net.features_extractor.load_state_dict(bc_fe_sd)
 
-    # Freeze actor for initial warm-up (critic learns from BC actions)
+    # Freeze actor for warm-up (critic learns first)
     for p in sac_model.policy.actor.parameters():
         p.requires_grad = False
     sac_model.learn(total_timesteps=SAC_FROZEN_STEPS)
 
-    # Unfreeze and run full training
+    # Unfreeze and train
     for p in sac_model.policy.actor.parameters():
         p.requires_grad = True
     sac_model.learn(
         total_timesteps=SAC_TOTAL_STEPS,
-        callback=eval_callback,
         progress_bar=True,
         reset_num_timesteps=False,
     )
 
-    sac_model.save(os.path.join(MODEL_DIR, "sac_bc_hvac"))
-    print("SAC training complete.")
+    # Save final model
+    final_path = os.path.join(MODEL_DIR, "sac_final", "sac_final")
+    sac_model.save(final_path)
+    # Also save as best_model for evaluate_drl.py compatibility
+    best_dir = os.path.join(MODEL_DIR, "best_model_sac")
+    os.makedirs(best_dir, exist_ok=True)
+    sac_model.save(os.path.join(best_dir, "best_model"))
+
+    elapsed = _time.time() - _t0
+    print()
+    print("=" * 60)
+    print(f"  TRAINING COMPLETE — {elapsed / 60:.1f} min total")
+    print(f"  Model saved to:")
+    print(f"    {final_path}.zip")
+    print(f"    {os.path.join(best_dir, 'best_model.zip')}")
+    print()
+    print(f"  Next step — evaluate:")
+    print(f"    python evaluate_drl.py")
+    print(f"  This produces:")
+    print(f"    drl_output/eval/run_N/eplusout.csv  ← for visualize_output.ipynb")
+    print(f"    sac_eval_eplus_TIMESTAMP.csv         ← RL-side observation log")
+    print("=" * 60)
