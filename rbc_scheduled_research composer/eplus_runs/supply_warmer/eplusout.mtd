@@ -1069,4 +1069,54 @@
   COOLING TOWER SS:Cooling Tower Make Up Mains Water Volume
 
  For Meter=HeatRejection:MainsWater [m3], ResourceType=MainsWater, EndUse=HeatRejection, contents are:
-  COOLING TOWER SS:Cooling Tower Make Up
+  COOLING TOWER SS:Cooling Tower Make Up Mains Water Volume
+
+ For Meter=General:HeatRejection:MainsWater [m3], ResourceType=MainsWater, EndUse=HeatRejection, contents are:
+  COOLING TOWER SS:Cooling Tower Make Up Mains Water Volume
+
+ For Meter=Boilers:EnergyTransfer [J], ResourceType=EnergyTransfer, EndUse=Boilers, contents are:
+  HOT WATER BOILER:Boiler Heating Energy
+
+ For Meter=NaturalGas:Facility [J], ResourceType=NaturalGas, contents are:
+  HOT WATER BOILER:Boiler NaturalGas Energy
+  HOT WATER BOILER:Boiler Ancillary NaturalGas Energy
+
+ For Meter=NaturalGas:Plant [J], ResourceType=NaturalGas, Group=Plant, contents are:
+  HOT WATER BOILER:Boiler NaturalGas Energy
+  HOT WATER BOILER:Boiler Ancillary NaturalGas Energy
+
+ For Meter=Heating:NaturalGas [J], ResourceType=NaturalGas, EndUse=Heating, contents are:
+  HOT WATER BOILER:Boiler NaturalGas Energy
+  HOT WATER BOILER:Boiler Ancillary NaturalGas Energy
+
+ For Meter=General:Heating:NaturalGas [J], ResourceType=NaturalGas, EndUse=Heating, contents are:
+  HOT WATER BOILER:Boiler NaturalGas Energy
+
+ For Meter=Heating:Electricity [J], ResourceType=Electricity, EndUse=Heating, contents are:
+  HOT WATER BOILER:Boiler Ancillary Electricity Energy
+
+ For Meter=Boiler Parasitic:Heating:Electricity [J], ResourceType=Electricity, EndUse=Heating, contents are:
+  HOT WATER BOILER:Boiler Ancillary Electricity Energy
+
+ For Meter=Boiler Parasitic:Heating:NaturalGas [J], ResourceType=NaturalGas, EndUse=Heating, contents are:
+  HOT WATER BOILER:Boiler Ancillary NaturalGas Energy
+
+ For Meter=Pumps:Electricity [J], ResourceType=Electricity, EndUse=Pumps, contents are:
+  CW CIRC PUMP:Pump Electricity Energy
+  CNDW CIRC PUMP:Pump Electricity Energy
+  HW CIRC PUMP:Pump Electricity Energy
+
+ For Meter=General:Pumps:Electricity [J], ResourceType=Electricity, EndUse=Pumps, contents are:
+  CW CIRC PUMP:Pump Electricity Energy
+  CNDW CIRC PUMP:Pump Electricity Energy
+  HW CIRC PUMP:Pump Electricity Energy
+
+ For Meter=Carbon Equivalent:Facility [kg], ResourceType=Carbon Equivalent, contents are:
+  Site:Environmental Impact Total N2O Emissions Carbon Equivalent Mass
+  Site:Environmental Impact Total CH4 Emissions Carbon Equivalent Mass
+  Site:Environmental Impact Total CO2 Emissions Carbon Equivalent Mass
+
+ For Meter=CarbonEquivalentEmissions:Carbon Equivalent [kg], ResourceType=Carbon Equivalent, EndUse=CarbonEquivalentEmissions, contents are:
+  Site:Environmental Impact Total N2O Emissions Carbon Equivalent Mass
+  Site:Environmental Impact Total CH4 Emissions Carbon Equivalent Mass
+  Site:Environmental Impact Total CO2 Emissions Carbon Equivalent Mass
