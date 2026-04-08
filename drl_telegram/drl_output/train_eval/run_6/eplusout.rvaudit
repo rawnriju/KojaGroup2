@@ -1,0 +1,16 @@
+ ReadVarsESO
+ processing:..\DOAS_wNeutralSupplyAir_wFanCoilUnits.rvi
+ input file:drl_output\train_eval\run_6\eplusout.eso
+ output file:drl_output\train_eval\run_6\eplusout.csv
+ getting all vars from:drl_output\train_eval\run_6\eplusout.eso
+  number variables requested for output=          80
+ ReadVars Run Time=00hr 00min  4.56sec
+ ReadVarsESO program completed successfully.
+ ReadVarsESO
+ processing:..\DOAS_wNeutralSupplyAir_wFanCoilUnits.mvi
+ input file:drl_output\train_eval\run_6\eplusout.mtr
+ output file:drl_output\train_eval\run_6\eplusmtr.csv
+ getting all vars from:drl_output\train_eval\run_6\eplusout.mtr
+  number variables requested for output=           8
+ ReadVars Run Time=00hr 00min  0.62sec
+ ReadVarsESO program completed successfully.

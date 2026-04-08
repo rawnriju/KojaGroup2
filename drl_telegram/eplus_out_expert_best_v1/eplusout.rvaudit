@@ -1,0 +1,16 @@
+ ReadVarsESO
+ processing:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\DOAS_wNeutralSupplyAir_wFanCoilUnits.rvi
+ input file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl\eplus_out_expert_best_v1\eplusout.eso
+ output file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl\eplus_out_expert_best_v1\eplusout.csv
+ getting all vars from:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl\eplus_out_expert_best_v1\eplusout.eso
+  number variables requested for output=          80
+ ReadVars Run Time=00hr 00min  4.92sec
+ ReadVarsESO program completed successfully.
+ ReadVarsESO
+ processing:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\DOAS_wNeutralSupplyAir_wFanCoilUnits.mvi
+ input file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl\eplus_out_expert_best_v1\eplusout.mtr
+ output file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl\eplus_out_expert_best_v1\eplusmtr.csv
+ getting all vars from:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl\eplus_out_expert_best_v1\eplusout.mtr
+  number variables requested for output=           8
+ ReadVars Run Time=00hr 00min  0.58sec
+ ReadVarsESO program completed successfully.
