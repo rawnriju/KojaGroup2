@@ -2,7 +2,12 @@
 Minimal BC + SAC for HVAC: expert replay prefill + recomputed rewards.
 
 Reuses ../drl EnergyPlus env and train_drl constants so obs/action spaces match.
-Run from this directory:  python train.py
+
+Run:  python train.py
+      DRL_SIMPLE_PROFILE=fast   → shorter smoke run (Windows: set DRL_SIMPLE_PROFILE=fast)
+
+Default ``quality`` profile: longer SAC (300k steps), BC epochs from ../drl/train_drl.py,
+critic warm-up, 2 gradient steps per env step, γ=0.995, no reward clipping on expert data.
 """
 
 from __future__ import annotations
@@ -28,14 +33,12 @@ sys.path.insert(0, str(_DRL))
 
 from eplus_sim import EnergyPlusEnv, FrameStackWrapper, get_reward  # noqa: E402
 from train_drl import (  # noqa: E402
+    BC_EPOCHS,
     BC_LR,
     EXPERT_JSON,
     IDF_FILE,
     SAC_BATCH_SIZE,
     SAC_BUFFER_SIZE,
-    SAC_LEARNING_RATE,
-    TIMESTEP_INTERVAL,
-    TOTAL_STEPS,
     WEATHER_FILE,
     _build_config,
     _effective_frame_stack,
@@ -50,14 +53,41 @@ SIMPLE_MODEL_DIR = Path(__file__).resolve().parent / "models"
 TRAIN_OUT = Path(__file__).resolve().parent / "drl_simple_output" / "train"
 EXPERT_PATH = Path(EXPERT_JSON) if os.path.isabs(EXPERT_JSON) else _DRL / "expert_data_best_v3.json"
 
-# --------------------------------------------------------------------------- knobs (edit here)
-BC_EPOCHS_SIMPLE = 80
-TOTAL_SAC_STEPS = 120_000
-ACTOR_FREEZE_STEPS = 1_500
-ENT_COEF = 0.04
-SAC_TRAIN_FREQ = 2
-LEARNING_STARTS = 256
-REWARD_CLIP = 50.0
+# --------------------------------------------------------------------------- training profile
+#   quality (default) — longer SAC, stronger BC (uses BC_EPOCHS from ../drl/train_drl.py),
+#                       more critic warm-up, 2 grad steps / update, gentler LR, γ closer to 1.
+#   fast              — shorter run for debugging.
+# Override:  set DRL_SIMPLE_PROFILE=fast
+#
+_PROFILE = os.environ.get("DRL_SIMPLE_PROFILE", "quality").strip().lower()
+
+if _PROFILE == "fast":
+    BC_EPOCHS_LOCAL = min(BC_EPOCHS, 60)
+    TOTAL_SAC_STEPS = 80_000
+    ACTOR_FREEZE_STEPS = 2_000
+    SAC_LR = 3e-4
+    ENT_COEF = 0.05
+    GAMMA = 0.99
+    TAU = 0.005
+    GRADIENT_STEPS = 1
+    SAC_TRAIN_FREQ = 2
+    LEARNING_STARTS = 256
+    BATCH_SIZE = SAC_BATCH_SIZE
+    REWARD_CLIP = 50.0
+else:
+    # quality — longer wall time, better chance to beat ~7.3–7.4k € expert band
+    BC_EPOCHS_LOCAL = BC_EPOCHS
+    TOTAL_SAC_STEPS = 300_000
+    ACTOR_FREEZE_STEPS = 8_000
+    SAC_LR = 2e-4
+    ENT_COEF = 0.025
+    GAMMA = 0.995
+    TAU = 0.0075
+    GRADIENT_STEPS = 2
+    SAC_TRAIN_FREQ = 1
+    LEARNING_STARTS = 1_024
+    BATCH_SIZE = max(SAC_BATCH_SIZE, 384)
+    REWARD_CLIP = 0.0
 
 
 def _wrap_env(base):
@@ -171,8 +201,12 @@ if __name__ == "__main__":
 
     print("=" * 60)
     print("  drl_simple — BC + SAC (expert replay prefill)")
-    print(f"    expert: {EXPERT_PATH}")
-    print(f"    SAC steps: {TOTAL_SAC_STEPS:,}  ent_coef={ENT_COEF}")
+    print(f"    profile:   {_PROFILE}")
+    print(f"    expert:    {EXPERT_PATH}")
+    print(f"    BC epochs: {BC_EPOCHS_LOCAL}  (train_drl.BC_EPOCHS={BC_EPOCHS})")
+    print(f"    SAC:       {TOTAL_SAC_STEPS:,} steps  freeze_critic={ACTOR_FREEZE_STEPS:,}")
+    print(f"             lr={SAC_LR}  ent={ENT_COEF}  γ={GAMMA}  τ={TAU}")
+    print(f"             batch={BATCH_SIZE}  grad_steps={GRADIENT_STEPS}  train_freq={SAC_TRAIN_FREQ}")
     print("=" * 60)
 
     # --- BC (same loader as train_drl: rolling 24h + normalization)
@@ -199,9 +233,9 @@ if __name__ == "__main__":
         rng=np.random.default_rng(42),
         device="auto",
         policy=bc_policy,
-        batch_size=SAC_BATCH_SIZE,
+        batch_size=BATCH_SIZE,
     )
-    bc_trainer.train(n_epochs=BC_EPOCHS_SIMPLE)
+    bc_trainer.train(n_epochs=BC_EPOCHS_LOCAL)
     bc_path = SIMPLE_MODEL_DIR / "bc_policy.pt"
     bc_trainer.policy.save(str(bc_path))
     print(f"  BC saved  {bc_path}")
@@ -216,15 +250,15 @@ if __name__ == "__main__":
     sac_model = SAC(
         policy="MlpPolicy",
         env=train_env,
-        learning_rate=linear_schedule(SAC_LEARNING_RATE),
-        batch_size=SAC_BATCH_SIZE,
+        learning_rate=linear_schedule(SAC_LR),
+        batch_size=BATCH_SIZE,
         buffer_size=SAC_BUFFER_SIZE,
         learning_starts=LEARNING_STARTS,
-        gamma=0.99,
-        tau=0.005,
+        gamma=GAMMA,
+        tau=TAU,
         ent_coef=ENT_COEF,
         train_freq=SAC_TRAIN_FREQ,
-        gradient_steps=1,
+        gradient_steps=GRADIENT_STEPS,
         verbose=1,
         tensorboard_log=str(SIMPLE_MODEL_DIR / "tb_sac"),
         policy_kwargs=pk,

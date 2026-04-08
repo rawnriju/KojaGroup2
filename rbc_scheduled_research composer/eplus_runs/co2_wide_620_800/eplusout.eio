@@ -1,0 +1,323 @@
+Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.04.08 16:37
+! <Version>, Version ID
+ Version, 25.1
+! <Timesteps per Hour>, #TimeSteps, Minutes per TimeStep {minutes}
+ Timesteps per Hour,  4, 15
+! <System Convergence Limits>, Minimum System TimeStep {minutes}, Max HVAC Iterations, Minimum Plant Iterations, Maximum Plant Iterations
+ System Convergence Limits, 1, 20, 2, 8
+! <Simulation Control>, Do Zone Sizing, Do System Sizing, Do Plant Sizing, Do Design Days, Do Weather Simulation, Do HVAC Sizing Simulation
+ Simulation Control, No, No, No, No, Yes, No
+! <Performance Precision Tradeoffs>, Use Coil Direct Simulation, Zone Radiant Exchange Algorithm, Override Mode, Number of Timestep In Hour, Force Euler Method, Minimum Number of Warmup Days, Force Suppress All Begin Environment Resets, Minimum System Timestep, MaxZoneTempDiff, MaxAllowedDelTemp
+ Performance Precision Tradeoffs, No, ScriptF, Normal, 4, No, 1, No, 1.0, 0.300, 2.0000E-003
+! <Output Reporting Tolerances>, Tolerance for Time Heating Setpoint Not Met, Tolerance for Zone Cooling Setpoint Not Met Time
+ Output Reporting Tolerances, 0.200, 0.200, 
+! <ScheduleTypeLimits>,Name,Limited? {Yes/No},Minimum,Maximum,Continuous? {Yes/No - Discrete}
+ScheduleTypeLimits,FRACTION,Yes,0.00,1.00,Yes
+ScheduleTypeLimits,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Yes,0,4,No
+ScheduleTypeLimits,TEMPERATURE,Yes,-60.00,200.00,Yes
+ScheduleTypeLimits,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Yes,0,4,No
+ScheduleTypeLimits,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Yes,0,4,No
+ScheduleTypeLimits,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Yes,0,4,No
+ScheduleTypeLimits,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Yes,0,4,No
+ScheduleTypeLimits,ACTIVITYLEVEL,No,N/A,N/A,N/A
+ScheduleTypeLimits,ANY NUMBER,No,N/A,N/A,N/A
+ScheduleTypeLimits,FLOWRATE,Yes,0.00,10.00,Yes
+ScheduleTypeLimits,HVACTEMPLATE ANY NUMBER,No,N/A,N/A,N/A
+ScheduleTypeLimits,ON/OFF,Yes,0,1,No
+ScheduleTypeLimits,ONOFF,Yes,0,1,No
+ScheduleTypeLimits,TEMPERATURE_LIMITS,Yes,-60.00,200.00,Yes
+ScheduleTypeLimits,TEMPERATURE_LIMITS 1,Yes,-60.00,200.00,Yes
+ScheduleTypeLimits,TEMPERATURE_LIMITS 2,Yes,-60.00,200.00,Yes
+ScheduleTypeLimits,TEMPERATURE_LIMITS 3,Yes,-60.00,200.00,Yes
+ScheduleTypeLimits,{3C3CC2E9-3703-4A02-B268-4B59D8C003B9},No,N/A,N/A,N/A
+ScheduleTypeLimits,{99719A4D-17D7-4033-9CF7-59EC5A1D3141},No,N/A,N/A,N/A
+ScheduleTypeLimits,HUMIDITY,Yes,0.00,100.00,Yes
+! Schedule Details Report=Hourly =====================
+! <DaySchedule - Hourly>,Name,ScheduleType,Interpolated {Average/Linear/No},Time (HH:MM) =>,01:00,02:00,03:00,04:00,05:00,06:00,07:00,08:00,09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00,21:00,22:00,23:00,24:00
+! <WeekSchedule - Hourly>,Name,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Holiday,SummerDesignDay,WinterDesignDay,CustomDay1,CustomDay2
+! <Schedule - Hourly>,Name,ScheduleType,Until Date 1,WeekSchedule 1,Until Date 2,WeekSchedule 2,Until Date 3,WeekSchedule 3,Until Date 4,WeekSchedule 4,Until Date 5,WeekSchedule 5,Until Date 6,WeekSchedule 6,Until Date 7,WeekSchedule 7,Until Date 8,WeekSchedule 8,Until Date 9,WeekSchedule 9,
+DaySchedule - Hourly,MissingDaySchedule-0.0,,No,Values:,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00
+DaySchedule - Hourly,CHILLED_WATER_TEMPERATURE_DEFAULT,TEMPERATURE_LIMITS,No,Values:,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70
+DaySchedule - Hourly,CHILLED_WATER_TEMPERATURE_SUMMER_DESIGN_DAY,TEMPERATURE_LIMITS,No,Values:,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70
+DaySchedule - Hourly,CHILLED_WATER_TEMPERATURE_WINTER_DESIGN_DAY,TEMPERATURE_LIMITS,No,Values:,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70,6.70
+DaySchedule - Hourly,HOT_WATER_TEMPERATURE_DEFAULT,TEMPERATURE_LIMITS,No,Values:,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00
+DaySchedule - Hourly,HOT_WATER_TEMPERATURE_SUMMER_DESIGN_DAY,TEMPERATURE_LIMITS,No,Values:,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00
+DaySchedule - Hourly,HOT_WATER_TEMPERATURE_WINTER_DESIGN_DAY,TEMPERATURE_LIMITS,No,Values:,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00,67.00
+DaySchedule - Hourly,LIGHTS-1_dy_1,FRACTION,No,Values:,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,0.90,0.95,1.00,0.95,0.80,0.90,1.00,1.00,1.00,1.00,0.60,0.40,0.40,5.00E-002,5.00E-002,5.00E-002
+DaySchedule - Hourly,LIGHTS-1_dy_2,FRACTION,No,Values:,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002,5.00E-002
+DaySchedule - Hourly,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,No,Values:,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00
+DaySchedule - Hourly,HTG-SETP-SCH_dy_1,TEMPERATURE,No,Values:,13.00,13.00,13.00,13.00,13.00,13.00,18.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,13.00,13.00,13.00
+DaySchedule - Hourly,HTG-SETP-SCH_dy_2,TEMPERATURE,No,Values:,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00
+DaySchedule - Hourly,HTG-SETP-SCH_dy_3,TEMPERATURE,No,Values:,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00,13.00
+DaySchedule - Hourly,HTG-SETP-SCH_dy_4,TEMPERATURE,No,Values:,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00,23.00
+DaySchedule - Hourly,CLG-SETP-SCH_dy_1,TEMPERATURE,No,Values:,32.00,32.00,32.00,32.00,32.00,32.00,26.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,26.00,26.00,26.00,32.00,32.00,32.00
+DaySchedule - Hourly,CLG-SETP-SCH_dy_2,TEMPERATURE,No,Values:,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00
+DaySchedule - Hourly,CLG-SETP-SCH_dy_3,TEMPERATURE,No,Values:,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00,24.00
+DaySchedule - Hourly,CLG-SETP-SCH_dy_4,TEMPERATURE,No,Values:,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00,32.00
+DaySchedule - Hourly,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,TEMPERATURE,No,Values:,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00,16.00
+DaySchedule - Hourly,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,No,Values:,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00
+DaySchedule - Hourly,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,No,Values:,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00
+DaySchedule - Hourly,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,No,Values:,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00
+DaySchedule - Hourly,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,No,Values:,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00,4.00
+DaySchedule - Hourly,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDITY,No,Values:,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00,40.00
+DaySchedule - Hourly,DEHUMIDIFYINGHUMSETSCH_dy_1,HUMIDITY,No,Values:,65.00,65.00,65.00,65.00,65.00,65.00,65.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,65.00,65.00,65.00
+DaySchedule - Hourly,DEHUMIDIFYINGHUMSETSCH_dy_2,HUMIDITY,No,Values:,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00
+DaySchedule - Hourly,DEHUMIDIFYINGHUMSETSCH_dy_3,HUMIDITY,No,Values:,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00,60.00
+DaySchedule - Hourly,DEHUMIDIFYINGHUMSETSCH_dy_4,HUMIDITY,No,Values:,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00,65.00
+DaySchedule - Hourly,ACTSCHD_dy_1,ACTIVITYLEVEL,No,Values:,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24,117.24
+DaySchedule - Hourly,EQUIP-1_dy_1,FRACTION,No,Values:,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,0.40,0.90,0.90,0.90,0.90,0.90,0.80,0.70,0.50,0.50,0.30,0.30,0.30,2.00E-002,2.00E-002,2.00E-002
+DaySchedule - Hourly,EQUIP-1_dy_2,FRACTION,No,Values:,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002,2.00E-002
+DaySchedule - Hourly,INFIL-SCH_dy_1,FRACTION,No,Values:,1.00,1.00,1.00,1.00,1.00,1.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,1.00,1.00
+DaySchedule - Hourly,INFIL-SCH_dy_2,FRACTION,No,Values:,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00
+DaySchedule - Hourly,INFIL-SCH_dy_3,FRACTION,No,Values:,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00
+DaySchedule - Hourly,INFIL-SCH_dy_4,FRACTION,No,Values:,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00
+DaySchedule - Hourly,OCCUPY-1_dy_1,FRACTION,No,Values:,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,1.00,1.00,0.80,0.40,0.80,1.00,1.00,1.00,1.00,0.50,0.10,0.10,0.00,0.00,0.00
+DaySchedule - Hourly,OCCUPY-1_dy_2,FRACTION,No,Values:,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00
+DaySchedule - Hourly,SHADETRANSSCH_dy_1,FRACTION,No,Values:,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00
+WeekSchedule - Hourly,CHILLED_WATER_TEMPERATURE WEEK RULE - JAN1-DEC31,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_SUMMER_DESIGN_DAY,CHILLED_WATER_TEMPERATURE_WINTER_DESIGN_DAY,CHILLED_WATER_TEMPERATURE_DEFAULT,CHILLED_WATER_TEMPERATURE_DEFAULT
+WeekSchedule - Hourly,HOT_WATER_TEMPERATURE WEEK RULE - JAN1-DEC31,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_SUMMER_DESIGN_DAY,HOT_WATER_TEMPERATURE_WINTER_DESIGN_DAY,HOT_WATER_TEMPERATURE_DEFAULT,HOT_WATER_TEMPERATURE_DEFAULT
+WeekSchedule - Hourly,LIGHTS-1_wk_1,LIGHTS-1_dy_2,LIGHTS-1_dy_1,LIGHTS-1_dy_1,LIGHTS-1_dy_1,LIGHTS-1_dy_1,LIGHTS-1_dy_1,LIGHTS-1_dy_2,LIGHTS-1_dy_2,LIGHTS-1_dy_1,LIGHTS-1_dy_2,LIGHTS-1_dy_1,LIGHTS-1_dy_1
+WeekSchedule - Hourly,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1
+WeekSchedule - Hourly,HTG-SETP-SCH_wk_1,HTG-SETP-SCH_dy_2,HTG-SETP-SCH_dy_1,HTG-SETP-SCH_dy_1,HTG-SETP-SCH_dy_1,HTG-SETP-SCH_dy_1,HTG-SETP-SCH_dy_1,HTG-SETP-SCH_dy_2,HTG-SETP-SCH_dy_2,HTG-SETP-SCH_dy_3,HTG-SETP-SCH_dy_4,HTG-SETP-SCH_dy_1,HTG-SETP-SCH_dy_1
+WeekSchedule - Hourly,CLG-SETP-SCH_wk_1,CLG-SETP-SCH_dy_2,CLG-SETP-SCH_dy_1,CLG-SETP-SCH_dy_1,CLG-SETP-SCH_dy_1,CLG-SETP-SCH_dy_1,CLG-SETP-SCH_dy_1,CLG-SETP-SCH_dy_2,CLG-SETP-SCH_dy_2,CLG-SETP-SCH_dy_3,CLG-SETP-SCH_dy_4,CLG-SETP-SCH_dy_1,CLG-SETP-SCH_dy_1
+WeekSchedule - Hourly,AHU_SUPPLY_TEMP_SCHEDULE_wk_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1,AHU_SUPPLY_TEMP_SCHEDULE_dy_1
+WeekSchedule - Hourly,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1
+WeekSchedule - Hourly,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1
+WeekSchedule - Hourly,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1
+WeekSchedule - Hourly,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_dy_1
+WeekSchedule - Hourly,HUMIDIFYINGHUMSETSCH_wk_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1,HUMIDIFYINGHUMSETSCH_dy_1
+WeekSchedule - Hourly,DEHUMIDIFYINGHUMSETSCH_wk_1,DEHUMIDIFYINGHUMSETSCH_dy_2,DEHUMIDIFYINGHUMSETSCH_dy_1,DEHUMIDIFYINGHUMSETSCH_dy_1,DEHUMIDIFYINGHUMSETSCH_dy_1,DEHUMIDIFYINGHUMSETSCH_dy_1,DEHUMIDIFYINGHUMSETSCH_dy_1,DEHUMIDIFYINGHUMSETSCH_dy_2,DEHUMIDIFYINGHUMSETSCH_dy_2,DEHUMIDIFYINGHUMSETSCH_dy_3,DEHUMIDIFYINGHUMSETSCH_dy_4,DEHUMIDIFYINGHUMSETSCH_dy_1,DEHUMIDIFYINGHUMSETSCH_dy_1
+WeekSchedule - Hourly,ACTSCHD_wk_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1,ACTSCHD_dy_1
+WeekSchedule - Hourly,EQUIP-1_wk_1,EQUIP-1_dy_2,EQUIP-1_dy_1,EQUIP-1_dy_1,EQUIP-1_dy_1,EQUIP-1_dy_1,EQUIP-1_dy_1,EQUIP-1_dy_2,EQUIP-1_dy_2,EQUIP-1_dy_1,EQUIP-1_dy_2,EQUIP-1_dy_1,EQUIP-1_dy_1
+WeekSchedule - Hourly,INFIL-SCH_wk_1,INFIL-SCH_dy_2,INFIL-SCH_dy_1,INFIL-SCH_dy_1,INFIL-SCH_dy_1,INFIL-SCH_dy_1,INFIL-SCH_dy_1,INFIL-SCH_dy_2,INFIL-SCH_dy_2,INFIL-SCH_dy_3,INFIL-SCH_dy_4,INFIL-SCH_dy_1,INFIL-SCH_dy_1
+WeekSchedule - Hourly,OCCUPY-1_wk_1,OCCUPY-1_dy_2,OCCUPY-1_dy_1,OCCUPY-1_dy_1,OCCUPY-1_dy_1,OCCUPY-1_dy_1,OCCUPY-1_dy_1,OCCUPY-1_dy_2,OCCUPY-1_dy_2,OCCUPY-1_dy_1,OCCUPY-1_dy_2,OCCUPY-1_dy_1,OCCUPY-1_dy_1
+WeekSchedule - Hourly,SHADETRANSSCH_wk_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1,SHADETRANSSCH_dy_1
+Schedule - Hourly,CHILLED_WATER_TEMPERATURE,TEMPERATURE_LIMITS,Through Dec 31,CHILLED_WATER_TEMPERATURE WEEK RULE - JAN1-DEC31
+Schedule - Hourly,HOT_WATER_TEMPERATURE,TEMPERATURE_LIMITS,Through Dec 31,HOT_WATER_TEMPERATURE WEEK RULE - JAN1-DEC31
+Schedule - Hourly,LIGHTS-1,FRACTION,Through Dec 31,LIGHTS-1_wk_1
+Schedule - Hourly,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Through Dec 31,SPACE1-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1
+Schedule - Hourly,HTG-SETP-SCH,TEMPERATURE,Through Dec 31,HTG-SETP-SCH_wk_1
+Schedule - Hourly,CLG-SETP-SCH,TEMPERATURE,Through Dec 31,CLG-SETP-SCH_wk_1
+Schedule - Hourly,AHU_SUPPLY_TEMP_SCHEDULE,TEMPERATURE,Through Dec 31,AHU_SUPPLY_TEMP_SCHEDULE_wk_1
+Schedule - Hourly,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Through Dec 31,SPACE2-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1
+Schedule - Hourly,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Through Dec 31,SPACE3-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1
+Schedule - Hourly,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Through Dec 31,SPACE4-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1
+Schedule - Hourly,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE TYPE LIMITS,Through Dec 31,SPACE5-1 THERMAL ZONE THERMOSTAT SCHEDULE_wk_1
+Schedule - Hourly,HUMIDIFYINGHUMSETSCH,HUMIDITY,Through Dec 31,HUMIDIFYINGHUMSETSCH_wk_1
+Schedule - Hourly,DEHUMIDIFYINGHUMSETSCH,HUMIDITY,Through Dec 31,DEHUMIDIFYINGHUMSETSCH_wk_1
+Schedule - Hourly,ACTSCHD,ACTIVITYLEVEL,Through Dec 31,ACTSCHD_wk_1
+Schedule - Hourly,EQUIP-1,FRACTION,Through Dec 31,EQUIP-1_wk_1
+Schedule - Hourly,INFIL-SCH,FRACTION,Through Dec 31,INFIL-SCH_wk_1
+Schedule - Hourly,OCCUPY-1,FRACTION,Through Dec 31,OCCUPY-1_wk_1
+Schedule - Hourly,SHADETRANSSCH,FRACTION,Through Dec 31,SHADETRANSSCH_wk_1
+! <Site:GroundTemperature:BuildingSurface>,Jan{C},Feb{C},Mar{C},Apr{C},May{C},Jun{C},Jul{C},Aug{C},Sep{C},Oct{C},Nov{C},Dec{C}
+ Site:GroundTemperature:BuildingSurface,  18.00,  18.00,  18.00,  18.00,  18.00,  18.00,  18.00,  18.00,  18.00,  18.00,  18.00,  18.00
+! <Site:GroundTemperature:FCfactorMethod>,Jan{C},Feb{C},Mar{C},Apr{C},May{C},Jun{C},Jul{C},Aug{C},Sep{C},Oct{C},Nov{C},Dec{C}
+ Site:GroundTemperature:FCfactorMethod,  -1.52,  -2.35,  -0.87,   1.45,   7.53,  12.22,  15.38,  16.34,  14.70,  11.06,   6.20,   1.69
+! <Site:GroundTemperature:Shallow>,Jan{C},Feb{C},Mar{C},Apr{C},May{C},Jun{C},Jul{C},Aug{C},Sep{C},Oct{C},Nov{C},Dec{C}
+ Site:GroundTemperature:Shallow,  13.00,  13.00,  13.00,  13.00,  13.00,  13.00,  13.00,  13.00,  13.00,  13.00,  13.00,  13.00
+! <Site:GroundTemperature:Deep>,Jan{C},Feb{C},Mar{C},Apr{C},May{C},Jun{C},Jul{C},Aug{C},Sep{C},Oct{C},Nov{C},Dec{C}
+ Site:GroundTemperature:Deep,  16.00,  16.00,  16.00,  16.00,  16.00,  16.00,  16.00,  16.00,  16.00,  16.00,  16.00,  16.00
+! <Site:GroundReflectance>,Jan{dimensionless},Feb{dimensionless},Mar{dimensionless},Apr{dimensionless},May{dimensionless},Jun{dimensionless},Jul{dimensionless},Aug{dimensionless},Sep{dimensionless},Oct{dimensionless},Nov{dimensionless},Dec{dimensionless}
+ Site:GroundReflectance,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20
+! <Site:GroundReflectance:SnowModifier>, Normal, Daylighting {dimensionless}
+ Site:GroundReflectance:SnowModifier,   1.000,   1.000
+! <Site:GroundReflectance:Snow>,Jan{dimensionless},Feb{dimensionless},Mar{dimensionless},Apr{dimensionless},May{dimensionless},Jun{dimensionless},Jul{dimensionless},Aug{dimensionless},Sep{dimensionless},Oct{dimensionless},Nov{dimensionless},Dec{dimensionless}
+ Site:GroundReflectance:Snow,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20
+! <Site:GroundReflectance:Snow:Daylighting>,Jan{dimensionless},Feb{dimensionless},Mar{dimensionless},Apr{dimensionless},May{dimensionless},Jun{dimensionless},Jul{dimensionless},Aug{dimensionless},Sep{dimensionless},Oct{dimensionless},Nov{dimensionless},Dec{dimensionless}
+ Site:GroundReflectance:Snow:Daylighting,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20,  0.20
+! <Environment:Weather Station>,Wind Sensor Height Above Ground {m},Wind Speed Profile Exponent {},Wind Speed Profile Boundary Layer Thickness {m},Air Temperature Sensor Height Above Ground {m},Wind Speed Modifier Coefficient-Internal,Temperature Modifier Coefficient-Internal
+Environment:Weather Station,10.000,0.140,270.000,1.500,1.586,9.750E-003
+! <Site:Location>, Location Name, Latitude {N+/S- Deg}, Longitude {E+/W- Deg},  Time Zone Number {GMT+/-}, Elevation {m},  Standard Pressure at Elevation {Pa}, Standard RhoAir at Elevation
+Site:Location,Tampere.Satakunnankatu TR FIN Custom-027440 WMO#=027440,61.50,23.76,2.00,92.00,100225,1.1912
+! <Site Water Mains Temperature Information>,Calculation Method{},Water Mains Temperature Schedule Name{},Annual Average Outdoor Air Temperature{C},Maximum Difference In Monthly Average Outdoor Air Temperatures{deltaC},Fixed Default Water Mains Temperature{C}
+Site Water Mains Temperature Information,FixedDefault,NA,NA,NA,10.0
+! <Building Information>, Building Name,North Axis {deg},Terrain,  Loads Convergence Tolerance Value,Temperature Convergence Tolerance Value,  Solar Distribution,Maximum Number of Warmup Days,Minimum Number of Warmup Days
+ Building Information,Building,30.000,City,4.00000E-002,0.40000,FullExterior,25,6
+! <Inside Convection Algorithm>, Algorithm {Simple | TARP | CeilingDiffuser | AdaptiveConvectionAlgorithm}
+Inside Convection Algorithm,TARP
+! <Outside Convection Algorithm>, Algorithm {SimpleCombined | TARP | MoWitt | DOE-2 | AdaptiveConvectionAlgorithm}
+Outside Convection Algorithm,DOE-2
+! <Sky Radiance Distribution>, Value {Anisotropic}
+Sky Radiance Distribution,Anisotropic
+! <Zone Air Solution Algorithm>, Algorithm {ThirdOrderBackwardDifference | AnalyticalSolution | EulerMethod}, Space Heat Balance Sizing, Space Heat Balance Simulation
+ Zone Air Solution Algorithm, AnalyticalSolution, No, No
+! <Zone Air Carbon Dioxide Balance Simulation>, Simulation {Yes/No}, Carbon Dioxide Concentration
+ Zone Air Carbon Dioxide Balance Simulation, Yes,YES
+! <Zone Air Generic Contaminant Balance Simulation>, Simulation {Yes/No}, Generic Contaminant Concentration
+ Zone Air Generic Contaminant Balance Simulation, No,N/A
+! <Zone Air Mass Flow Balance Simulation>, Enforce Mass Balance, Adjust Zone Mixing and Return {AdjustMixingOnly | AdjustReturnOnly | AdjustMixingThenReturn | AdjustReturnThenMixing | None}, Adjust Zone Infiltration {AddInfiltration | AdjustInfiltration | None}, Infiltration Zones {MixingSourceZonesOnly | AllZones}
+ Zone Air Mass Flow Balance Simulation, No,N/A,N/A,N/A
+! <HVACSystemRootFindingAlgorithm>, Value {RegulaFalsi | Bisection | BisectionThenRegulaFalsi | RegulaFalsiThenBisection}
+ HVACSystemRootFindingAlgorithm, RegulaFalsi
+! <Environment:Site Atmospheric Variation>,Wind Speed Profile Exponent {},Wind Speed Profile Boundary Layer Thickness {m},Air Temperature Gradient Coefficient {K/m}
+Environment:Site Atmospheric Variation,0.330,460.000,6.500000E-003
+! <Shadowing/Sun Position Calculations Annual Simulations>, Shading Calculation Method, Shading Calculation Update Frequency Method, Shading Calculation Update Frequency {days}, Maximum Figures in Shadow Overlap Calculations {}, Polygon Clipping Algorithm, Pixel Counting Resolution, Sky Diffuse Modeling Algorithm, Output External Shading Calculation Results, Disable Self-Shading Within Shading Zone Groups, Disable Self-Shading From Shading Zone Groups to Other Zones
+Shadowing/Sun Position Calculations Annual Simulations,PolygonClipping,Periodic,20,15000,SutherlandHodgman,512,SimpleSkyDiffuseModeling,No,No,No
+! <Surface Geometry>,Starting Corner,Vertex Input Direction,Coordinate System,Daylight Reference Point Coordinate System,Rectangular (Simple) Surface Coordinate System
+ Surface Geometry,UpperLeftCorner,Counterclockwise,RelativeCoordinateSystem,RelativeCoordinateSystem,RelativeToZoneOrigin
+! <Surface Heat Transfer Algorithm>, Value {CTF - ConductionTransferFunction | EMPD - MoisturePenetrationDepthConductionTransferFunction | CondFD - ConductionFiniteDifference | HAMT - CombinedHeatAndMoistureFiniteElement} - Description,Inside Surface Max Temperature Limit{C}, Surface Convection Coefficient Lower Limit {W/m2-K}, Surface Convection Coefficient Upper Limit {W/m2-K}
+Surface Heat Transfer Algorithm, CTF - ConductionTransferFunction,200,0.10,1000.0
+! <Shading Summary>, Number of Fixed Detached Shades, Number of Building Detached Shades, Number of Attached Shades
+ Shading Summary,0,0,4
+! <Zone Summary>, Number of Zones, Number of Zone Surfaces, Number of SubSurfaces
+ Zone Summary,6,46,6
+! <Zone Information>,Zone Name,North Axis {deg},Origin X-Coordinate {m},Origin Y-Coordinate {m},Origin Z-Coordinate {m},Centroid X-Coordinate {m},Centroid Y-Coordinate {m},Centroid Z-Coordinate {m},Type,Zone Multiplier,Zone List Multiplier,Minimum X {m},Maximum X {m},Minimum Y {m},Maximum Y {m},Minimum Z {m},Maximum Z {m},Ceiling Height {m},Volume {m3},Zone Inside Convection Algorithm {Simple-Detailed-CeilingDiffuser-TrombeWall},Zone Outside Convection Algorithm {Simple-Detailed-Tarp-MoWitt-DOE-2-BLAST}, Floor Area {m2},Exterior Gross Wall Area {m2},Exterior Net Wall Area {m2},Exterior Window Area {m2}, Number of Surfaces, Number of SubSurfaces, Number of Shading SubSurfaces,  Part of Total Building Area
+ Zone Information, PLENUM-1 THERMAL ZONE,0.0,0.00,0.00,0.00,17.01,-1.04,2.70,1,1,1,0.00,34.01,-15.25,13.16,2.40,3.00,0.61,283.20,TARP,DOE-2,463.60,54.84,54.84,0.00,10,0,0,Yes
+ Zone Information, SPACE1-1 THERMAL ZONE,0.0,0.00,0.00,0.00,14.06,-6.15,1.20,1,1,1,0.00,26.41,-15.25,1.35,0.00,2.40,2.44,239.25,TARP,DOE-2,99.16,73.20,51.39,21.81,6,2,4,Yes
+ Zone Information, SPACE2-1 THERMAL ZONE,0.0,0.00,0.00,0.00,28.88,-7.88,1.20,1,1,1,25.06,34.01,-15.25,-2.09,0.00,2.40,2.44,103.31,TARP,DOE-2,42.74,36.48,27.36,9.12,6,1,0,Yes
+ Zone Information, SPACE3-1 THERMAL ZONE,0.0,0.00,0.00,0.00,19.98,4.10,1.20,1,1,1,7.60,34.01,-3.35,13.16,0.00,2.40,2.44,239.25,TARP,DOE-2,96.48,73.20,52.35,20.85,6,2,0,Yes
+ Zone Information, SPACE4-1 THERMAL ZONE,0.0,0.00,0.00,0.00,5.15,5.82,1.20,1,1,1,0.00,9.00,0.00,13.16,0.00,2.40,2.44,103.31,TARP,DOE-2,42.74,36.48,27.36,9.12,6,1,0,Yes
+ Zone Information, SPACE5-1 THERMAL ZONE,0.0,0.00,0.00,0.00,17.03,-1.00,1.20,1,1,1,5.05,29.01,-10.20,8.20,0.00,2.40,2.44,447.68,TARP,DOE-2,182.49,0.00,0.00,0.00,6,0,0,Yes
+! <Zone Internal Gains Nominal>,Zone Name, Floor Area {m2},# Occupants,Area per Occupant {m2/person},Occupant per Area {person/m2},Interior Lighting {W/m2},Electric Load {W/m2},Gas Load {W/m2},Other Load {W/m2},Hot Water Eq {W/m2},Steam Equipment {W/m2},Sum Loads per Area {W/m2},Outdoor Controlled Baseboard Heat
+ Zone Internal Gains Nominal, PLENUM-1 THERMAL ZONE,463.60,0.0,N/A,0.000,0.000,0.000,0.000,0.000,0.000,0.000,0.000,No
+ Zone Internal Gains Nominal, SPACE1-1 THERMAL ZONE,99.16,11.0,9.015,0.111,15.974,10.649,0.000,0.000,0.000,0.000,26.624,No
+ Zone Internal Gains Nominal, SPACE2-1 THERMAL ZONE,42.74,5.0,8.547,0.117,16.006,10.670,0.000,0.000,0.000,0.000,26.676,No
+ Zone Internal Gains Nominal, SPACE3-1 THERMAL ZONE,96.48,11.0,8.771,0.114,16.418,10.945,0.000,0.000,0.000,0.000,27.363,No
+ Zone Internal Gains Nominal, SPACE4-1 THERMAL ZONE,42.74,5.0,8.547,0.117,16.006,10.670,0.000,0.000,0.000,0.000,26.676,No
+ Zone Internal Gains Nominal, SPACE5-1 THERMAL ZONE,182.49,20.0,9.125,0.110,16.242,10.828,0.000,0.000,0.000,0.000,27.070,No
+! <People Internal Gains Nominal>,Name,Schedule Name,Zone Name,Zone Floor Area {m2},# Zone Occupants,Number of People {},People/Floor Area {person/m2},Floor Area per person {m2/person},Fraction Radiant,Fraction Convected,Sensible Fraction Calculation,Activity level,ASHRAE 55 Warnings,Carbon Dioxide Generation Rate,Minimum Number of People for All Day Types,Maximum Number of People for All Day Types,Minimum Number of People for Weekdays, Maximum Number of People for Weekdays, Minimum Number of People for Weekends/Holidays, Maximum Number of People for Weekends /Holidays,Minimum Number of People for Summer Design Days, Maximum Number of People for Summer Design Days,Minimum Number of People for Winter Design Days, Maximum Number of People for Winter Design Days
+ People Internal Gains Nominal, SPACE1-1 PEOPLE 1,OCCUPY-1,SPACE1-1 THERMAL ZONE,99.16,11.0,11.0,0.111,9.015,0.300,0.700,AutoCalculate,ACTSCHD,No,3.8200E-008,0.0,11.0,0.0,11.0,0.0,0.0,0.0,11.0,0.0,0.0,
+ People Internal Gains Nominal, SPACE2-1 PEOPLE 1,OCCUPY-1,SPACE2-1 THERMAL ZONE,42.74,5.0,5.0,0.117,8.547,0.300,0.700,AutoCalculate,ACTSCHD,No,3.8200E-008,0.0,5.0,0.0,5.0,0.0,0.0,0.0,5.0,0.0,0.0,
+ People Internal Gains Nominal, SPACE3-1 PEOPLE 1,OCCUPY-1,SPACE3-1 THERMAL ZONE,96.48,11.0,11.0,0.114,8.771,0.300,0.700,AutoCalculate,ACTSCHD,No,3.8200E-008,0.0,11.0,0.0,11.0,0.0,0.0,0.0,11.0,0.0,0.0,
+ People Internal Gains Nominal, SPACE4-1 PEOPLE 1,OCCUPY-1,SPACE4-1 THERMAL ZONE,42.74,5.0,5.0,0.117,8.547,0.300,0.700,AutoCalculate,ACTSCHD,No,3.8200E-008,0.0,5.0,0.0,5.0,0.0,0.0,0.0,5.0,0.0,0.0,
+ People Internal Gains Nominal, SPACE5-1 PEOPLE 1,OCCUPY-1,SPACE5-1 THERMAL ZONE,182.49,20.0,20.0,0.110,9.125,0.300,0.700,AutoCalculate,ACTSCHD,No,3.8200E-008,0.0,20.0,0.0,20.0,0.0,0.0,0.0,20.0,0.0,0.0,
+! <Lights Internal Gains Nominal>,Name,Schedule Name,Zone Name,Zone Floor Area {m2},# Zone Occupants,Lighting Level {W},Lights/Floor Area {W/m2},Lights per person {W/person},Fraction Return Air,Fraction Radiant,Fraction Short Wave,Fraction Convected,Fraction Replaceable,End-Use, Minimum Lighting Level for All Day Types {W},Maximum Lighting Level for All Day Types {W},Minimum Lighting Level for Weekdays {W}, Maximum Lighting Level for Weekdays {W},Minimum Lighting Level for Weekends/Holidays {W}, Maximum Lighting Level for Weekends /Holidays {W},Minimum Lighting Level for Summer Design Days {W}, Maximum Lighting Level for Summer Design Days {W},Minimum Lighting Level for Winter Design Days {W}, Maximum Lighting Level for Winter Design Days {W}
+ Lights Internal Gains Nominal, SPACE1-1 LIGHTS 1,LIGHTS-1,SPACE1-1 THERMAL ZONE,99.16,11.0,1584.000,15.974,144.000,0.000,0.590,0.200,0.210,0.000,GeneralLights,79.200,1584.000,79.200,1584.0,79.200,79.200,79.200,1584.000,79.200,79.200
+ Lights Internal Gains Nominal, SPACE2-1 LIGHTS 1,LIGHTS-1,SPACE2-1 THERMAL ZONE,42.74,5.0,684.000,16.006,136.800,0.000,0.590,0.200,0.210,0.000,GeneralLights,34.200,684.000,34.200,684.0,34.200,34.200,34.200,684.000,34.200,34.200
+ Lights Internal Gains Nominal, SPACE3-1 LIGHTS 1,LIGHTS-1,SPACE3-1 THERMAL ZONE,96.48,11.0,1584.000,16.418,144.000,0.000,0.590,0.200,0.210,0.000,GeneralLights,79.200,1584.000,79.200,1584.0,79.200,79.200,79.200,1584.000,79.200,79.200
+ Lights Internal Gains Nominal, SPACE4-1 LIGHTS 1,LIGHTS-1,SPACE4-1 THERMAL ZONE,42.74,5.0,684.000,16.006,136.800,0.000,0.590,0.200,0.210,0.000,GeneralLights,34.200,684.000,34.200,684.0,34.200,34.200,34.200,684.000,34.200,34.200
+ Lights Internal Gains Nominal, SPACE5-1 LIGHTS 1,LIGHTS-1,SPACE5-1 THERMAL ZONE,182.49,20.0,2964.000,16.242,148.200,0.000,0.590,0.200,0.210,0.000,GeneralLights,148.200,2964.000,148.200,2964.0,148.200,148.200,148.200,2964.000,148.200,148.200
+! <ElectricEquipment Internal Gains Nominal>,Name,Schedule Name,Zone Name,Zone Floor Area {m2},# Zone Occupants,Equipment Level {W},Equipment/Floor Area {W/m2},Equipment per person {W/person},Fraction Latent,Fraction Radiant,Fraction Lost,Fraction Convected,End-Use SubCategory,Minimum Equipment Level for All Day Types {W},Maximum Equipment Level for All Day Types {W},Minimum Equipment Level for Weekdays {W}, Maximum Equipment Level for Weekdays {W},Minimum Equipment Level for Weekends/Holidays {W}, Maximum Equipment Level for Weekends /Holidays {W},Minimum Equipment Level for Summer Design Days {W}, Maximum Equipment Level for Summer Design Days {W},Minimum Equipment Level for Winter Design Days {W}, Maximum Equipment Level for Winter Design Days {W}
+ ElectricEquipment Internal Gains Nominal, SPACE1-1 ELECEQ 1,EQUIP-1,SPACE1-1 THERMAL ZONE,99.16,11.0,1056.000,10.649,96.000,0.000,0.300,0.000,0.700,General,21.120,950.400,21.120,950.400,21.120,21.120,21.120,950.400,21.120,21.120
+ ElectricEquipment Internal Gains Nominal, SPACE2-1 ELECEQ 1,EQUIP-1,SPACE2-1 THERMAL ZONE,42.74,5.0,456.000,10.670,91.200,0.000,0.300,0.000,0.700,General,9.120,410.400,9.120,410.400,9.120,9.120,9.120,410.400,9.120,9.120
+ ElectricEquipment Internal Gains Nominal, SPACE3-1 ELECEQ 1,EQUIP-1,SPACE3-1 THERMAL ZONE,96.48,11.0,1056.000,10.945,96.000,0.000,0.300,0.000,0.700,General,21.120,950.400,21.120,950.400,21.120,21.120,21.120,950.400,21.120,21.120
+ ElectricEquipment Internal Gains Nominal, SPACE4-1 ELECEQ 1,EQUIP-1,SPACE4-1 THERMAL ZONE,42.74,5.0,456.000,10.670,91.200,0.000,0.300,0.000,0.700,General,9.120,410.400,9.120,410.400,9.120,9.120,9.120,410.400,9.120,9.120
+ ElectricEquipment Internal Gains Nominal, SPACE5-1 ELECEQ 1,EQUIP-1,SPACE5-1 THERMAL ZONE,182.49,20.0,1976.000,10.828,98.800,0.000,0.300,0.000,0.700,General,39.520,1778.400,39.520,1778.400,39.520,39.520,39.520,1778.400,39.520,39.520
+! <ZoneInfiltration Airflow Stats Nominal>,Name,Input Object, Schedule Name,Zone Name, Zone Floor Area {m2}, # Zone Occupants,Design Volume Flow Rate {m3/s},Volume Flow Rate/Floor Area {m3/s-m2},Volume Flow Rate/Exterior Surface Area {m3/s-m2},ACH - Air Changes per Hour,Equation A - Constant Term Coefficient {},Equation B - Temperature Term Coefficient {1/C},Equation C - Velocity Term Coefficient {s/m}, Equation D - Velocity Squared Term Coefficient {s2/m2}
+ ZoneInfiltration Airflow Stats Nominal, SPACE1-1 INFIL 1,ZoneInfiltration:DesignFlowRate,INFIL-SCH,SPACE1-1 THERMAL ZONE,99.16,11.0,1.670E-002,1.684E-004,2.281E-004,0.251,0.000,0.000,0.224,0.000
+ ZoneInfiltration Airflow Stats Nominal, SPACE2-1 INFIL 1,ZoneInfiltration:DesignFlowRate,INFIL-SCH,SPACE2-1 THERMAL ZONE,42.74,5.0,7.170E-003,1.678E-004,1.965E-004,0.250,0.000,0.000,0.224,0.000
+ ZoneInfiltration Airflow Stats Nominal, SPACE3-1 INFIL 1,ZoneInfiltration:DesignFlowRate,INFIL-SCH,SPACE3-1 THERMAL ZONE,96.48,11.0,1.670E-002,1.731E-004,2.281E-004,0.251,0.000,0.000,0.224,0.000
+ ZoneInfiltration Airflow Stats Nominal, SPACE4-1 INFIL 1,ZoneInfiltration:DesignFlowRate,INFIL-SCH,SPACE4-1 THERMAL ZONE,42.74,5.0,7.170E-003,1.678E-004,1.965E-004,0.250,0.000,0.000,0.224,0.000
+ ZoneInfiltration Airflow Stats Nominal, SPACE5-1 INFIL 1,ZoneInfiltration:DesignFlowRate,INFIL-SCH,SPACE5-1 THERMAL ZONE,182.49,20.0,3.109E-002,1.704E-004,N/A,0.250,0.000,0.000,0.224,0.000
+! <AirFlow Model>, Simple
+ AirFlow Model, Simple
+! <RoomAir Model>, Zone Name, Mixing/Mundt/UCSDDV/UCSDCV/UCSDUFI/UCSDUFE/User Defined
+RoomAir Model,PLENUM-1 THERMAL ZONE,Mixing/Well-Stirred
+RoomAir Model,SPACE1-1 THERMAL ZONE,Mixing/Well-Stirred
+RoomAir Model,SPACE2-1 THERMAL ZONE,Mixing/Well-Stirred
+RoomAir Model,SPACE3-1 THERMAL ZONE,Mixing/Well-Stirred
+RoomAir Model,SPACE4-1 THERMAL ZONE,Mixing/Well-Stirred
+RoomAir Model,SPACE5-1 THERMAL ZONE,Mixing/Well-Stirred
+! <AirflowNetwork Model:Control>, No Multizone or Distribution/Multizone with Distribution/Multizone without Distribution/Multizone with Distribution only during Fan Operation
+AirflowNetwork Model:Control,NoMultizoneOrDistribution
+! <Zone Volume Capacitance Multiplier>, Sensible Heat Capacity Multiplier, Moisture Capacity Multiplier, Carbon Dioxide Capacity Multiplier, Generic Contaminant Capacity Multiplier
+Zone Volume Capacitance Multiplier,   1.000 ,   1.000,   1.000,   1.000
+! <Component Sizing Information>, Component Type, Component Name, Input Field Description, Value
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE1-1 THERMAL ZONE VAV NOREHEAT AT, User-Specified Maximum Air Flow Rate [m3/s], 0.16500
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE1-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Constant Minimum Air Flow Fraction, 0.45794
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE1-1 THERMAL ZONE VAV NOREHEAT AT, User-Specified Constant Minimum Air Flow Fraction, 0.45794
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE1-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Minimum Air Flow Rate [m3/s], 7.55601E-002
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE1-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Hot Water Flow [m3/s], 1.26380E-004
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE1-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Cold Water Flow [m3/s], 1.81860E-004
+ Component Sizing Information, Fan:OnOff, SPACE1-1 THERMAL ZONE FCU SUPPLY FAN, User-Specified Maximum Flow Rate [m3/s], 0.16500
+ Component Sizing Information, Fan:OnOff, SPACE1-1 THERMAL ZONE FCU SUPPLY FAN, Design Electric Power Consumption [W], 82.50000
+! <Water Cooling Coil Capacity Information>,Component Type,Name,Nominal Total Capacity {W},Nominal Sensible Capacity {W},Nominal Latent Capacity {W},Nominal Sensible Heat Ratio, Nominal Coil UA Value {W/C}, Nominal Coil Surface Area {m2}
+Water Cooling Coil Capacity Information,Coil:Cooling:Water,SPACE1-1 THERMAL ZONE FCU COOLING COIL,4063.79,2789.59,1274.20,0.69,370.80,3.76
+! <Water Heating Coil Capacity Information>,Component Type,Name,Nominal Total Capacity {W}
+Water Heating Coil Capacity Information,Coil:Heating:Water,SPACE1-1 THERMAL ZONE FCU HEATING COIL,6216.76
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE2-1 THERMAL ZONE VAV NOREHEAT AT, User-Specified Maximum Air Flow Rate [m3/s], 0.10108
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE2-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Constant Minimum Air Flow Fraction, 0.32216
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE2-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Minimum Air Flow Rate [m3/s], 3.25641E-002
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE2-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Hot Water Flow [m3/s], 5.74400E-005
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE2-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Cold Water Flow [m3/s], 1.04230E-004
+ Component Sizing Information, Fan:OnOff, SPACE2-1 THERMAL ZONE FCU SUPPLY FAN, User-Specified Maximum Flow Rate [m3/s], 0.10000
+ Component Sizing Information, Fan:OnOff, SPACE2-1 THERMAL ZONE FCU SUPPLY FAN, Design Electric Power Consumption [W], 50.00000
+Water Cooling Coil Capacity Information,Coil:Cooling:Water,SPACE2-1 THERMAL ZONE FCU COOLING COIL,2412.06,1670.25,741.81,0.69,218.43,2.22
+Water Heating Coil Capacity Information,Coil:Heating:Water,SPACE2-1 THERMAL ZONE FCU HEATING COIL,2825.81
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE3-1 THERMAL ZONE VAV NOREHEAT AT, User-Specified Maximum Air Flow Rate [m3/s], 0.16500
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE3-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Constant Minimum Air Flow Fraction, 0.44556
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE3-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Minimum Air Flow Rate [m3/s], 7.35178E-002
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE3-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Hot Water Flow [m3/s], 1.26390E-004
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE3-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Cold Water Flow [m3/s], 1.92870E-004
+ Component Sizing Information, Fan:OnOff, SPACE3-1 THERMAL ZONE FCU SUPPLY FAN, User-Specified Maximum Flow Rate [m3/s], 0.16500
+ Component Sizing Information, Fan:OnOff, SPACE3-1 THERMAL ZONE FCU SUPPLY FAN, Design Electric Power Consumption [W], 82.50000
+Water Cooling Coil Capacity Information,Coil:Cooling:Water,SPACE3-1 THERMAL ZONE FCU COOLING COIL,4175.46,2845.19,1330.27,0.68,383.97,3.89
+Water Heating Coil Capacity Information,Coil:Heating:Water,SPACE3-1 THERMAL ZONE FCU HEATING COIL,6216.84
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE4-1 THERMAL ZONE VAV NOREHEAT AT, User-Specified Maximum Air Flow Rate [m3/s], 7.50000E-002
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE4-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Constant Minimum Air Flow Fraction, 0.43419
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE4-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Minimum Air Flow Rate [m3/s], 3.25641E-002
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE4-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Hot Water Flow [m3/s], 5.74400E-005
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE4-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Cold Water Flow [m3/s], 8.26200E-005
+ Component Sizing Information, Fan:OnOff, SPACE4-1 THERMAL ZONE FCU SUPPLY FAN, User-Specified Maximum Flow Rate [m3/s], 7.50000E-002
+ Component Sizing Information, Fan:OnOff, SPACE4-1 THERMAL ZONE FCU SUPPLY FAN, Design Electric Power Consumption [W], 37.50000
+Water Cooling Coil Capacity Information,Coil:Cooling:Water,SPACE4-1 THERMAL ZONE FCU COOLING COIL,1847.16,1268.01,579.14,0.69,168.59,1.71
+Water Heating Coil Capacity Information,Coil:Heating:Water,SPACE4-1 THERMAL ZONE FCU HEATING COIL,2825.81
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE5-1 THERMAL ZONE VAV NOREHEAT AT, User-Specified Maximum Air Flow Rate [m3/s], 0.30000
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE5-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Constant Minimum Air Flow Fraction, 0.46352
+ Component Sizing Information, AirTerminal:SingleDuct:VAV:NoReheat, SPACE5-1 THERMAL ZONE VAV NOREHEAT AT, Design Size Minimum Air Flow Rate [m3/s], 0.13906
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE5-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Hot Water Flow [m3/s], 2.05130E-004
+ Component Sizing Information, ZoneHVAC:FourPipeFanCoil, SPACE5-1 THERMAL ZONE FAN COIL UNIT, User-Specified Maximum Cold Water Flow [m3/s], 3.71030E-004
+ Component Sizing Information, Fan:OnOff, SPACE5-1 THERMAL ZONE FCU SUPPLY FAN, User-Specified Maximum Flow Rate [m3/s], 0.30000
+ Component Sizing Information, Fan:OnOff, SPACE5-1 THERMAL ZONE FCU SUPPLY FAN, Design Electric Power Consumption [W], 150.00000
+Water Cooling Coil Capacity Information,Coil:Cooling:Water,SPACE5-1 THERMAL ZONE FCU COOLING COIL,7783.59,5268.20,2515.39,0.68,721.50,7.32
+Water Heating Coil Capacity Information,Coil:Heating:Water,SPACE5-1 THERMAL ZONE FCU HEATING COIL,10593.95
+!<Controller:MechanicalVentilation>,Name,Availability Schedule Name,Demand Controlled Ventilation {Yes/No},System Outdoor Air Method,Zone Maximum Outdoor Air Fraction,Number of Zones,Zone Name,DSOA Name,DSZAD Name
+ Controller:MechanicalVentilation,CONTROLLER MECHANICAL VENTILATION 1,ALWAYS ON DISCRETE,No,ZoneSum,1.00,5,SPACE1-1 THERMAL ZONE,SZ DSOA SPACE1-1,SPACE1-1 THERMAL ZONE DESIGN SPEC ZONE AIR DIST,SPACE2-1 THERMAL ZONE,SZ DSOA SPACE2-1,SPACE2-1 THERMAL ZONE DESIGN SPEC ZONE AIR DIST,SPACE3-1 THERMAL ZONE,SZ DSOA SPACE3-1,SPACE3-1 THERMAL ZONE DESIGN SPEC ZONE AIR DIST,SPACE4-1 THERMAL ZONE,SZ DSOA SPACE4-1,SPACE4-1 THERMAL ZONE DESIGN SPEC ZONE AIR DIST,SPACE5-1 THERMAL ZONE,SZ DSOA SPACE5-1,SPACE5-1 THERMAL ZONE DESIGN SPEC ZONE AIR DIST
+ Component Sizing Information, HeatExchanger:AirToAir:SensibleAndLatent, HEATRECOVERYHEX 1, User-Specified Nominal Supply Air Flow Rate [m3/s], 0.50000
+Water Cooling Coil Capacity Information,Coil:Cooling:Water,DOAS COOLING COIL,20131.87,13697.22,6434.65,0.68,1746.89,17.72
+Water Heating Coil Capacity Information,Coil:Heating:Water,DOAS HEATING COIL,6431.51
+ Component Sizing Information, Fan:VariableVolume, DOAS SYSTEM SUPPLY FAN, User-Specified Maximum Flow Rate [m3/s], 0.81000
+ Component Sizing Information, Fan:VariableVolume, DOAS SYSTEM SUPPLY FAN, Design Electric Power Consumption [W], 1363.52278
+ Component Sizing Information, PlantLoop, CHILLED WATER LOOP, Maximum Loop Flow Rate [m3/s], 1.96768E-003
+ Component Sizing Information, PlantLoop, CHILLED WATER LOOP, Plant Loop Volume [m3], 0.23612
+ Component Sizing Information, PlantLoop, CHILLED WATER LOOP, Design Supply Temperature [C], 6.70000
+ Component Sizing Information, PlantLoop, CHILLED WATER LOOP, Design Return Temperature [C], 11.70000
+ Component Sizing Information, PlantLoop, CHILLED WATER LOOP, Sizing Option, NonCoincident
+ Component Sizing Information, PlantLoop, CHILLED WATER LOOP, Minimum Loop Flow Rate [m3/s], 0.00000
+ Component Sizing Information, PlantLoop, CHILLED WATER LOOP, Design Capacity [W], 41296.70182
+ Component Sizing Information, Chiller:Electric:EIR, CHILLER ELECTRIC EIR, Design Size Reference Chilled Water Flow Rate [m3/s], 1.96768E-003
+ Component Sizing Information, Chiller:Electric:EIR, CHILLER ELECTRIC EIR, User-Specified Reference Chilled Water Flow Rate [m3/s], 1.96768E-003
+ Component Sizing Information, Chiller:Electric:EIR, CHILLER ELECTRIC EIR, Design Size Reference Capacity [W], 41296.70182
+ Component Sizing Information, Chiller:Electric:EIR, CHILLER ELECTRIC EIR, User-Specified Reference Capacity [W], 41296.63438
+ Component Sizing Information, Chiller:Electric:EIR, CHILLER ELECTRIC EIR, Design Size Reference Condenser Fluid Flow Rate [m3/s], 2.13197E-003
+ Component Sizing Information, Chiller:Electric:EIR, CHILLER ELECTRIC EIR, User-Specified Reference Condenser Fluid Flow Rate [m3/s], 2.34516E-003
+! <Chiller Standard Rating Information>, Component Type, Component Name, IPLV in SI Units {W/W}, IPLV in IP Units {Btu/W-h}
+ Chiller Standard Rating Information, Chiller:Electric:EIR, CHILLER ELECTRIC EIR, 6.80, 23.02
+ Component Sizing Information, PlantLoop, CONDENSER WATER LOOP, Maximum Loop Flow Rate [m3/s], 2.34516E-003
+ Component Sizing Information, PlantLoop, CONDENSER WATER LOOP, Plant Loop Volume [m3], 0.28142
+ Component Sizing Information, PlantLoop, CONDENSER WATER LOOP, Design Supply Temperature [C], 29.50000
+ Component Sizing Information, PlantLoop, CONDENSER WATER LOOP, Design Return Temperature [C], 35.00000
+ Component Sizing Information, PlantLoop, CONDENSER WATER LOOP, Sizing Option, NonCoincident
+ Component Sizing Information, PlantLoop, CONDENSER WATER LOOP, Minimum Loop Flow Rate [m3/s], 0.00000
+ Component Sizing Information, PlantLoop, CONDENSER WATER LOOP, Design Capacity [W], 54140.97341
+ Component Sizing Information, PlantLoop, HOT WATER LOOP, Maximum Loop Flow Rate [m3/s], 7.42055E-004
+ Component Sizing Information, PlantLoop, HOT WATER LOOP, Plant Loop Volume [m3], 8.90466E-002
+ Component Sizing Information, PlantLoop, HOT WATER LOOP, Design Supply Temperature [C], 82.00000
+ Component Sizing Information, PlantLoop, HOT WATER LOOP, Design Return Temperature [C], 71.00000
+ Component Sizing Information, PlantLoop, HOT WATER LOOP, Sizing Option, NonCoincident
+ Component Sizing Information, PlantLoop, HOT WATER LOOP, Minimum Loop Flow Rate [m3/s], 0.00000
+ Component Sizing Information, PlantLoop, HOT WATER LOOP, Design Capacity [W], 34261.85668
+ Component Sizing Information, Boiler:HotWater, HOT WATER BOILER, Design Size Nominal Capacity [W], 33585.92657
+ Component Sizing Information, Boiler:HotWater, HOT WATER BOILER, User-Specified Nominal Capacity [W], 33586.61676
+ Component Sizing Information, Boiler:HotWater, HOT WATER BOILER, Design Size Design Water Flow Rate [m3/s], 7.42040E-004
+ Component Sizing Information, Boiler:HotWater, HOT WATER BOILER, User-Specified Design Water Flow Rate [m3/s], 7.42055E-004
+! <Environment>,Environment Name,Environment Type, Start Date, End Date, Start DayOfWeek, Duration {#days}, Source:Start DayOfWeek,  Use Daylight Saving, Use Holidays, Apply Weekend Holiday Rule,  Use Rain Values, Use Snow Values, Sky Temperature Model
+! <Environment:Special Days>, Special Day Name, Special Day Type, Source, Start Date, Duration {#days}
+! <Environment:Daylight Saving>, Daylight Saving Indicator, Source, Start Date, End Date
+! <Environment:WarmupDays>, NumberofWarmupDays
+Environment,RUN PERIOD 1,WeatherFileRunPeriod,01/01/2006,12/31/2006,Sunday,365,Use RunPeriod Specified Day,No,No,No,Yes,Yes,Clark and Allen
+Environment:Daylight Saving,No,RunPeriod Object
+Environment:WarmupDays,  6
+! <Tabular Report>,Style,Unit Conversion, Format Reals
+Tabular Report,HTML,None,Yes
+! <Warmup Convergence Information>,Zone Name,Environment Type/Name,Average Warmup Temperature Difference {deltaC},Std Dev Warmup Temperature Difference {deltaC},Max Temperature Pass/Fail Convergence,Min Temperature Pass/Fail Convergence,Average Warmup Load Difference {W},Std Dev Warmup Load Difference {W},Heating Load Pass/Fail Convergence,Cooling Load Pass/Fail Convergence
+ Warmup Convergence Information,PLENUM-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,4.2719166484E-002,4.8032278331E-002,Pass,Pass,0.0000000000,0.0000000000,Pass,Pass
+ Warmup Convergence Information,SPACE1-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,6.7319744288E-002,0.4792935866,Pass,Pass,1.9294992400E-002,8.7047178810E-002,Pass,Pass
+ Warmup Convergence Information,SPACE2-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,6.7182428797E-002,0.4853796062,Pass,Pass,2.0346366532E-002,8.4797411326E-002,Pass,Pass
+ Warmup Convergence Information,SPACE3-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,6.7531603871E-002,0.4815143521,Pass,Pass,1.9423142985E-002,8.6807876554E-002,Pass,Pass
+ Warmup Convergence Information,SPACE4-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,6.7096882128E-002,0.4851014963,Pass,Pass,2.0330236243E-002,8.4700255354E-002,Pass,Pass
+ Warmup Convergence Information,SPACE5-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,5.2520078643E-002,0.4004820216,Pass,Pass,1.8664177278E-002,8.4171864051E-002,Pass,Pass
+! <Program Control Information:Threads/Parallel Sims>, Threading Supported,Maximum Number of Threads, Env Set Threads (OMP_NUM_THREADS), EP Env Set Threads (EP_OMP_NUM_THREADS), IDF Set Threads, Number of Threads Used (Interior Radiant Exchange), Number Nominal Surfaces, Number Parallel Sims
+Program Control Information:Threads/Parallel Sims, No,1, N/A, N/A, N/A, N/A, N/A, N/A
+End of Data

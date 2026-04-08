@@ -1,0 +1,16 @@
+ ReadVarsESO
+ processing:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\DOAS_wNeutralSupplyAir_wFanCoilUnits.rvi
+ input file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\rbc_scheduled_research composer\eplus_runs\co2_wide_630_820\eplusout.eso
+ output file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\rbc_scheduled_research composer\eplus_runs\co2_wide_630_820\eplusout.csv
+ getting all vars from:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\rbc_scheduled_research composer\eplus_runs\co2_wide_630_820\eplusout.eso
+  number variables requested for output=          80
+ ReadVars Run Time=00hr 00min  4.86sec
+ ReadVarsESO program completed successfully.
+ ReadVarsESO
+ processing:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\DOAS_wNeutralSupplyAir_wFanCoilUnits.mvi
+ input file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\rbc_scheduled_research composer\eplus_runs\co2_wide_630_820\eplusout.mtr
+ output file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\rbc_scheduled_research composer\eplus_runs\co2_wide_630_820\eplusmtr.csv
+ getting all vars from:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\rbc_scheduled_research composer\eplus_runs\co2_wide_630_820\eplusout.mtr
+  number variables requested for output=           8
+ ReadVars Run Time=00hr 00min  0.72sec
+ ReadVarsESO program completed successfully.

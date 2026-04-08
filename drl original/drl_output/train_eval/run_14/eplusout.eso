@@ -1,0 +1,87 @@
+Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.04.08 11:44
+1,5,Environment Title[],Latitude[deg],Longitude[deg],Time Zone[],Elevation[m]
+2,8,Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],Hour[],StartMinute[],EndMinute[],DayType
+3,5,Cumulative Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],DayType  ! When Daily Report Variables Requested
+4,2,Cumulative Days of Simulation[],Month[]  ! When Monthly Report Variables Requested
+5,1,Cumulative Days of Simulation[] ! When Run Period Report Variables Requested
+6,1,Calendar Year of Simulation[] ! When Annual Report Variables Requested
+7,1,Environment,Site Outdoor Air Drybulb Temperature [C] !Hourly
+8,1,Environment,Site Outdoor Air Wetbulb Temperature [C] !Hourly
+9,1,SPACE1-1 THERMAL ZONE,Zone People Occupant Count [] !Hourly
+10,1,SPACE2-1 THERMAL ZONE,Zone People Occupant Count [] !Hourly
+11,1,SPACE3-1 THERMAL ZONE,Zone People Occupant Count [] !Hourly
+12,1,SPACE4-1 THERMAL ZONE,Zone People Occupant Count [] !Hourly
+13,1,SPACE5-1 THERMAL ZONE,Zone People Occupant Count [] !Hourly
+14,1,SPACE1-1 LIGHTS 1,Lights Electricity Energy [J] !Hourly
+135,1,SPACE2-1 LIGHTS 1,Lights Electricity Energy [J] !Hourly
+172,1,SPACE3-1 LIGHTS 1,Lights Electricity Energy [J] !Hourly
+209,1,SPACE4-1 LIGHTS 1,Lights Electricity Energy [J] !Hourly
+246,1,SPACE5-1 LIGHTS 1,Lights Electricity Energy [J] !Hourly
+283,1,SPACE1-1 ELECEQ 1,Electric Equipment Electricity Energy [J] !Hourly
+356,1,SPACE2-1 ELECEQ 1,Electric Equipment Electricity Energy [J] !Hourly
+381,1,SPACE3-1 ELECEQ 1,Electric Equipment Electricity Energy [J] !Hourly
+406,1,SPACE4-1 ELECEQ 1,Electric Equipment Electricity Energy [J] !Hourly
+431,1,SPACE5-1 ELECEQ 1,Electric Equipment Electricity Energy [J] !Hourly
+456,1,PLENUM-1 THERMAL ZONE,Zone Air Temperature [C] !Hourly
+457,1,PLENUM-1 THERMAL ZONE,Zone Air Relative Humidity [%] !Hourly
+592,1,SPACE1-1 THERMAL ZONE,Zone Air Temperature [C] !Hourly
+593,1,SPACE1-1 THERMAL ZONE,Zone Air Relative Humidity [%] !Hourly
+656,1,SPACE2-1 THERMAL ZONE,Zone Air Temperature [C] !Hourly
+657,1,SPACE2-1 THERMAL ZONE,Zone Air Relative Humidity [%] !Hourly
+720,1,SPACE3-1 THERMAL ZONE,Zone Air Temperature [C] !Hourly
+721,1,SPACE3-1 THERMAL ZONE,Zone Air Relative Humidity [%] !Hourly
+784,1,SPACE4-1 THERMAL ZONE,Zone Air Temperature [C] !Hourly
+785,1,SPACE4-1 THERMAL ZONE,Zone Air Relative Humidity [%] !Hourly
+848,1,SPACE5-1 THERMAL ZONE,Zone Air Temperature [C] !Hourly
+849,1,SPACE5-1 THERMAL ZONE,Zone Air Relative Humidity [%] !Hourly
+912,1,PLENUM-1 THERMAL ZONE,Zone Air CO2 Concentration [ppm] !Hourly
+913,1,PLENUM-1 THERMAL ZONE,Zone Air CO2 Predicted Load to Setpoint Mass Flow Rate [kg/s] !Hourly
+914,1,PLENUM-1 THERMAL ZONE,Zone Air CO2 Setpoint Concentration [ppm] !Hourly
+915,1,PLENUM-1 THERMAL ZONE,Zone Air CO2 Internal Gain Volume Flow Rate [m3/s] !Hourly
+916,1,SPACE1-1 THERMAL ZONE,Zone Air CO2 Concentration [ppm] !Hourly
+917,1,SPACE1-1 THERMAL ZONE,Zone Air CO2 Predicted Load to Setpoint Mass Flow Rate [kg/s] !Hourly
+918,1,SPACE1-1 THERMAL ZONE,Zone Air CO2 Setpoint Concentration [ppm] !Hourly
+919,1,SPACE1-1 THERMAL ZONE,Zone Air CO2 Internal Gain Volume Flow Rate [m3/s] !Hourly
+920,1,SPACE2-1 THERMAL ZONE,Zone Air CO2 Concentration [ppm] !Hourly
+921,1,SPACE2-1 THERMAL ZONE,Zone Air CO2 Predicted Load to Setpoint Mass Flow Rate [kg/s] !Hourly
+922,1,SPACE2-1 THERMAL ZONE,Zone Air CO2 Setpoint Concentration [ppm] !Hourly
+923,1,SPACE2-1 THERMAL ZONE,Zone Air CO2 Internal Gain Volume Flow Rate [m3/s] !Hourly
+924,1,SPACE3-1 THERMAL ZONE,Zone Air CO2 Concentration [ppm] !Hourly
+925,1,SPACE3-1 THERMAL ZONE,Zone Air CO2 Predicted Load to Setpoint Mass Flow Rate [kg/s] !Hourly
+926,1,SPACE3-1 THERMAL ZONE,Zone Air CO2 Setpoint Concentration [ppm] !Hourly
+927,1,SPACE3-1 THERMAL ZONE,Zone Air CO2 Internal Gain Volume Flow Rate [m3/s] !Hourly
+928,1,SPACE4-1 THERMAL ZONE,Zone Air CO2 Concentration [ppm] !Hourly
+929,1,SPACE4-1 THERMAL ZONE,Zone Air CO2 Predicted Load to Setpoint Mass Flow Rate [kg/s] !Hourly
+930,1,SPACE4-1 THERMAL ZONE,Zone Air CO2 Setpoint Concentration [ppm] !Hourly
+931,1,SPACE4-1 THERMAL ZONE,Zone Air CO2 Internal Gain Volume Flow Rate [m3/s] !Hourly
+932,1,SPACE5-1 THERMAL ZONE,Zone Air CO2 Concentration [ppm] !Hourly
+933,1,SPACE5-1 THERMAL ZONE,Zone Air CO2 Predicted Load to Setpoint Mass Flow Rate [kg/s] !Hourly
+934,1,SPACE5-1 THERMAL ZONE,Zone Air CO2 Setpoint Concentration [ppm] !Hourly
+935,1,SPACE5-1 THERMAL ZONE,Zone Air CO2 Internal Gain Volume Flow Rate [m3/s] !Hourly
+1068,1,DOAS SYSTEM SUPPLY FAN,Fan Electricity Energy [J] !Hourly
+1105,1,SPACE1-1 THERMAL ZONE FCU SUPPLY FAN,Fan Electricity Energy [J] !Hourly
+1106,1,SPACE2-1 THERMAL ZONE FCU SUPPLY FAN,Fan Electricity Energy [J] !Hourly
+1107,1,SPACE3-1 THERMAL ZONE FCU SUPPLY FAN,Fan Electricity Energy [J] !Hourly
+1108,1,SPACE4-1 THERMAL ZONE FCU SUPPLY FAN,Fan Electricity Energy [J] !Hourly
+1109,1,SPACE5-1 THERMAL ZONE FCU SUPPLY FAN,Fan Electricity Energy [J] !Hourly
+1136,1,HEATRECOVERYHEX 1,Heat Exchanger Electricity Energy [J] !Hourly
+1308,1,CHILLER ELECTRIC EIR,Chiller Electricity Energy [J] !Hourly
+1395,1,COOLING TOWER SS,Cooling Tower Fan Electricity Energy [J] !Hourly
+1580,1,HOT WATER BOILER,Boiler Ancillary Electricity Energy [J] !Hourly
+1618,1,CW CIRC PUMP,Pump Electricity Energy [J] !Hourly
+1643,1,CNDW CIRC PUMP,Pump Electricity Energy [J] !Hourly
+1644,1,HW CIRC PUMP,Pump Electricity Energy [J] !Hourly
+1645,1,NODE 2,System Node Temperature [C] !Hourly
+1646,1,NODE 2,System Node Mass Flow Rate [kg/s] !Hourly
+1647,1,NODE 2,System Node Humidity Ratio [kgWater/kgDryAir] !Hourly
+1648,1,NODE 2,System Node Setpoint Temperature [C] !Hourly
+1649,1,NODE 2,System Node CO2 Concentration [ppm] !Hourly
+1650,1,NODE 1,System Node Temperature [C] !Hourly
+1533,1,NaturalGas:Facility [J] !Hourly
+16,1,Electricity:Facility [J] !Hourly
+1070,1,Electricity:HVAC [J] !Hourly
+1010,1,CoolingCoils:EnergyTransfer [J] !Hourly
+950,1,HeatingCoils:EnergyTransfer [J] !Hourly
+1261,1,ElectricityNet:Facility [J] !Hourly
+569,1,General:Cooling:EnergyTransfer [J] !Hourly
+545,1,Cooling:EnergyTransfer [J] !Hourly

@@ -34,18 +34,29 @@ EVAL_OUT      = "drl_output2/eval"
 
 
 def evaluate(model_path, config, csv_prefix="sac_eval_eplus"):
+    print("Building env...", flush=True)
     env = make_wrapped_env(config)
-    model = SAC.load(model_path, env=env)
+    print("Loading model...", flush=True)
+    custom_objects = {
+        "learning_rate": 0.0,
+        "lr_schedule": lambda _: 0.0,
+        "clip_range": lambda _: 0.0,
+    }
+    model = SAC.load(model_path, env=env, device="cpu", custom_objects=custom_objects)
+    print("Model loaded.", flush=True)
 
     obs_names = config["observations"]
     act_names = config["rl_actions"]
     n_base = len(obs_names)
     stacked = USE_GRU_AND_FRAME_STACK and FRAME_STACK_N > 1
 
+    print("Resetting env...")
     obs, _ = env.reset()
+    print("Env reset complete.")
     done, truncated = False, False
     rows = []
 
+    print("Starting evaluation loop...")
     while not (done or truncated):
         action, _ = model.predict(obs, deterministic=True)
         next_obs, reward, done, truncated, _ = env.step(action)
