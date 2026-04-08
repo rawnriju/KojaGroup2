@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Run EnergyPlus with the best v3 adaptive RBC and write expert trajectories
-for behavioral cloning in train_drl.py.
+"""Run EnergyPlus with the v5 occupancy-aware RBC (best_v5_occupancy_7355eur)
+and write expert trajectories for behavioral cloning in train_drl.py.
 
 Normalization uses OBS_SPEC / ACTION_SPEC from train_drl.py so the JSON matches
 EnergyPlusEnv observation/action spaces.
@@ -37,13 +37,12 @@ from pyenergyplus.api import EnergyPlusAPI  # noqa: E402
 
 _DRL_DIR = Path(__file__).resolve().parent
 _REPO_ROOT = _DRL_DIR.parent
-sys.path.insert(0, str(_REPO_ROOT / "rbc_scheduled_research"))
+sys.path.insert(0, str(_REPO_ROOT / "rbc_scheduled_research_test_v3_output"))
 
-from best_v3_adaptive_7409eur import (  # noqa: E402
+from best_v5_occupancy_7355eur import (  # noqa: E402
     ACTUATORS,
     METERS,
-    PARAMS,
-    RBCModel,
+    OccupancyAwareRBC,
     VARIABLES,
 )
 
@@ -146,7 +145,7 @@ def _collect_obs(api_obj: Any, handles: Dict[str, int], state: Any,
 
 
 class ExpertTrajectoryController:
-    def __init__(self, api_obj: Any, model: RBCModel) -> None:
+    def __init__(self, api_obj: Any, model: OccupancyAwareRBC) -> None:
         self.api = api_obj
         self.model = model
         self.handles: Dict[str, int] = {}
@@ -204,24 +203,22 @@ class ExpertTrajectoryController:
         hour = raw_obs["_raw_hour"]
         day = raw_obs["_raw_day"]
 
-        temps, co2s, occs = [], [], []
+        zone_temps, zone_co2s, occs = [], [], []
         for i in range(1, 6):
-            temps.append(self.get_variable(f"space{i}_temp", state))
-            co2s.append(self.get_variable(f"space{i}_co2", state))
+            zone_temps.append(self.get_variable(f"space{i}_temp", state))
+            zone_co2s.append(self.get_variable(f"space{i}_co2", state))
             occs.append(self.get_variable(f"space{i}_occupancy", state))
 
-        avg_temp = sum(temps) / len(temps)
-        max_co2 = max(co2s)
-        total_occupancy = sum(occs)
+        total_occ = sum(occs)
 
         htg, clg, supply_air_temp, flow = self.model.calculate_setpoints(
-            zone_temp=avg_temp,
+            zone_temps=zone_temps,
             outdoor_temp=outdoor_temp,
             return_air_temp=plenum_temp,
-            occupancy=total_occupancy,
+            occupancy=total_occ,
             hour=hour,
             day=day,
-            co2_concentration=max_co2,
+            zone_co2s=zone_co2s,
             direct_solar=direct_solar,
             wind_speed=wind_speed,
         )
@@ -259,8 +256,8 @@ class ExpertTrajectoryController:
         self.prev_action = normalized_action
 
 
-def run_export(params: Dict[str, Any] | None = None) -> int:
-    params = PARAMS if params is None else params
+def run_export(_params: Dict[str, Any] | None = None) -> int:
+    """_params is unused; kept for optional backward compatibility."""
 
     if not IDF_FILE.is_file():
         print(f"ERROR: IDF not found: {IDF_FILE}")
@@ -279,7 +276,7 @@ def run_export(params: Dict[str, Any] | None = None) -> int:
     for _name, (var, key) in VARIABLES.items():
         api_obj.exchange.request_variable(ep_state, var, key)
 
-    model = RBCModel(params)
+    model = OccupancyAwareRBC()
     controller = ExpertTrajectoryController(api_obj, model)
 
     api_obj.runtime.callback_after_new_environment_warmup_complete(

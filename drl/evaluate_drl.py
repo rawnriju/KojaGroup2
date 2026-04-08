@@ -1,11 +1,16 @@
 """
-evaluate_drl.py — Load the trained SAC model and run a full-year evaluation.
+evaluate_drl.py — Load the trained SAC model and run ONE clean full-year sim.
 
-Uses the same env wrapper as train_drl.py (see USE_GRU_AND_FRAME_STACK there).
+This is the run you point judges / output_calcs_comparison.ipynb at.
 
-Outputs:
-    sac_eval_eplus_TIMESTAMP.csv     — RL log (normalised obs, actions, rewards)
-    drl_output/eval/run_N/eplusout.csv — for visualize_output.ipynb
+Inputs:
+    models/best_model_sac/best_model.zip   (saved at end of train_drl.py)
+
+Outputs (after this script):
+    drl_output/eval/run_<N>/eplusout.csv   ← USE THIS in visualize_output.ipynb
+    sac_eval_eplus_<timestamp>.csv           ← RL obs/action log (optional)
+
+``drl_output/train/`` is only mid-training scratch; ignore for submission.
 """
 
 import os
@@ -25,7 +30,7 @@ from train_drl import (
 IDF_FILE      = os.path.join("..", "DOAS_wNeutralSupplyAir_wFanCoilUnits.idf")
 WEATHER_FILE  = os.path.join("..", "FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw")
 MODEL_PATH    = os.path.join("models", "best_model_sac", "best_model.zip")
-EVAL_OUT      = "drl_output/eval"
+EVAL_OUT      = "drl_output2/eval"
 
 
 def evaluate(model_path, config, csv_prefix="sac_eval_eplus"):

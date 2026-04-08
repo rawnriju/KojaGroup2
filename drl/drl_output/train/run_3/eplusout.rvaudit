@@ -4,7 +4,7 @@
  output file:drl_output\train\run_3\eplusout.csv
  getting all vars from:drl_output\train\run_3\eplusout.eso
   number variables requested for output=          80
- ReadVars Run Time=00hr 00min  4.67sec
+ ReadVars Run Time=00hr 00min  4.70sec
  ReadVarsESO program completed successfully.
  ReadVarsESO
  processing:..\DOAS_wNeutralSupplyAir_wFanCoilUnits.mvi
@@ -12,5 +12,5 @@
  output file:drl_output\train\run_3\eplusmtr.csv
  getting all vars from:drl_output\train\run_3\eplusout.mtr
   number variables requested for output=           8
- ReadVars Run Time=00hr 00min  0.62sec
+ ReadVars Run Time=00hr 00min  0.59sec
  ReadVarsESO program completed successfully.

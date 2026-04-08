@@ -15,8 +15,29 @@ To train longer / richer policy, edit the constants in section 4:
 After training:
     python evaluate_drl.py
 
-Expert data (v3 scheduler):
+Expert data (v5 occupancy-aware RBC via generate_expert_best_v1.py):
     python generate_expert_best_v1.py  →  expert_data_best_v3.json
+
+---------------------------------------------------------------------------
+WHERE YOUR “BEST” / SUBMISSION FILES LIVE  (read this)
+---------------------------------------------------------------------------
+• Trained policy (what you saved):
+      models/best_model_sac/best_model.zip
+      models/sac_final/sac_final.zip
+  (Same weights in both; we duplicate for convenience.)
+
+• For judges / notebooks you want a CLEAN full-year EnergyPlus CSV:
+      Run:  python evaluate_drl.py
+      Then use the NEWEST folder:
+      drl_output/eval/run_<N>/eplusout.csv
+      (largest N = last evaluation run)
+
+• drl_output/train/run_*  = scratch output while SAC is learning.
+  Each run_* is another simulated year during training — not your
+  final “best” building result; ignore for submission unless debugging.
+
+• drl_output/train_eval/  = leftover from an OLD template (BC mid-train
+  eval). Current code does not write there. Safe to delete the folder.
 """
 
 import os
@@ -44,6 +65,7 @@ IDF_FILE     = os.path.join("..", "DOAS_wNeutralSupplyAir_wFanCoilUnits.idf")
 WEATHER_FILE = os.path.join("..", "FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw")
 EXPERT_JSON  = os.path.join(os.path.dirname(__file__), "expert_data_best_v3.json")
 MODEL_DIR    = "models"
+# EnergyPlus writes here during SAC only (many run_1, run_2, … — not “final” result).
 TRAIN_OUT    = "drl_output/train"
 
 
@@ -125,11 +147,11 @@ FRAME_STACK_N     = 4             # only used if USE_GRU_AND_FRAME_STACK
 GRU_HIDDEN        = 128
 GRU_LAYERS        = 2
 
-BC_EPOCHS         = 120
+BC_EPOCHS         = 300
 BC_LR             = 5e-4
 
 SAC_FROZEN_STEPS  = 3_000
-SAC_TOTAL_STEPS   = 150_000       # ~½ of 300 K → ~½ E+ time during SAC
+SAC_TOTAL_STEPS   = 200_000       # ~½ of 300 K → ~½ E+ time during SAC
 SAC_BATCH_SIZE    = 256
 SAC_BUFFER_SIZE   = 200_000
 SAC_LEARNING_RATE = 3e-4
@@ -322,6 +344,14 @@ if __name__ == "__main__":
     print("  STEP 1 / 2 — Behavioral Cloning")
 
     obs, acts = load_expert_pairs(EXPERT_JSON, train_config, n_frames=nf)
+    
+    # FIX: SAC actor squashes actions via tanh(mu). The BC policy trains linearly.
+    # To ensure the transferred SAC actor outputs the expert actions, we must
+    # train the BC policy to output the inverse: arctanh(expert_action).
+    # We clip to avoid infinity on actions that are exactly -1.0 or 1.0.
+    acts = np.clip(acts, -0.9999, 0.9999)
+    acts = np.arctanh(acts)
+
     print(f"  Loaded {len(obs)} transitions  obs {obs.shape}  acts {acts.shape}")
 
     expert_data = Transitions(

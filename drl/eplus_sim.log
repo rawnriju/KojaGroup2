@@ -195,3 +195,63 @@
 2026-04-08 15:13:01 | INFO     | action_space: Box(-1.0, 1.0, (4,), float32)
 2026-04-08 15:13:01 | INFO     | observation_space: Box(-1.0, 1.0, (31,), float32)
 2026-04-08 15:13:02 | INFO     | Closing EnergyPlusEnv
+2026-04-08 15:21:26 | INFO     | action_space: Box(-1.0, 1.0, (4,), float32)
+2026-04-08 15:21:26 | INFO     | observation_space: Box(-1.0, 1.0, (31,), float32)
+2026-04-08 15:23:09 | INFO     | ---------- reset -----------
+2026-04-08 15:23:09 | INFO     | Starting new EnergyPlus run
+2026-04-08 15:23:09 | INFO     | Starting EnergyPlus simulation
+2026-04-08 15:23:09 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 15:23:09 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 15:23:09 | INFO     | Output path: drl_output/train
+2026-04-08 15:23:09 | INFO     | EnergyPlus handles initialized
+2026-04-08 15:27:13 | INFO     | ---------- reset -----------
+2026-04-08 15:27:13 | INFO     | Joining previous EnergyPlus thread …
+2026-04-08 15:27:18 | INFO     | EnergyPlus finished with exit code 0
+2026-04-08 15:27:18 | INFO     | Starting new EnergyPlus run
+2026-04-08 15:27:18 | INFO     | Starting EnergyPlus simulation
+2026-04-08 15:27:18 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 15:27:18 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 15:27:18 | INFO     | Output path: drl_output/train
+2026-04-08 15:27:18 | INFO     | EnergyPlus handles initialized
+2026-04-08 15:31:45 | INFO     | ---------- reset -----------
+2026-04-08 15:31:45 | INFO     | Joining previous EnergyPlus thread …
+2026-04-08 15:31:51 | INFO     | EnergyPlus finished with exit code 0
+2026-04-08 15:31:51 | INFO     | Starting new EnergyPlus run
+2026-04-08 15:31:51 | INFO     | Starting EnergyPlus simulation
+2026-04-08 15:31:51 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 15:31:51 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 15:31:51 | INFO     | Output path: drl_output/train
+2026-04-08 15:31:51 | INFO     | EnergyPlus handles initialized
+2026-04-08 15:36:11 | INFO     | ---------- reset -----------
+2026-04-08 15:36:11 | INFO     | Joining previous EnergyPlus thread …
+2026-04-08 15:36:17 | INFO     | EnergyPlus finished with exit code 0
+2026-04-08 15:36:17 | INFO     | Starting new EnergyPlus run
+2026-04-08 15:36:17 | INFO     | Starting EnergyPlus simulation
+2026-04-08 15:36:17 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 15:36:17 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 15:36:17 | INFO     | Output path: drl_output/train
+2026-04-08 15:36:17 | INFO     | EnergyPlus handles initialized
+2026-04-08 15:40:50 | INFO     | ---------- reset -----------
+2026-04-08 15:40:50 | INFO     | Joining previous EnergyPlus thread …
+2026-04-08 15:40:55 | INFO     | EnergyPlus finished with exit code 0
+2026-04-08 15:40:55 | INFO     | Starting new EnergyPlus run
+2026-04-08 15:40:55 | INFO     | Starting EnergyPlus simulation
+2026-04-08 15:40:55 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 15:40:55 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 15:40:55 | INFO     | Output path: drl_output/train
+2026-04-08 15:40:56 | INFO     | EnergyPlus handles initialized
+2026-04-08 15:43:30 | INFO     | action_space: Box(-1.0, 1.0, (4,), float32)
+2026-04-08 15:43:30 | INFO     | observation_space: Box(-1.0, 1.0, (31,), float32)
+2026-04-08 15:43:32 | INFO     | ---------- reset -----------
+2026-04-08 15:43:32 | INFO     | Starting new EnergyPlus run
+2026-04-08 15:43:32 | INFO     | Starting EnergyPlus simulation
+2026-04-08 15:43:32 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 15:43:32 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 15:43:32 | INFO     | Output path: drl_outputtt/eval
+2026-04-08 15:43:32 | INFO     | EnergyPlus handles initialized
+2026-04-08 15:44:34 | INFO     | Closing EnergyPlusEnv
+2026-04-08 15:44:40 | INFO     | EnergyPlus finished with exit code 0
+2026-04-08 15:50:52 | INFO     | action_space: Box(-1.0, 1.0, (4,), float32)
+2026-04-08 15:50:52 | INFO     | observation_space: Box(-1.0, 1.0, (31,), float32)
+2026-04-08 15:53:01 | INFO     | action_space: Box(-1.0, 1.0, (4,), float32)
+2026-04-08 15:53:01 | INFO     | observation_space: Box(-1.0, 1.0, (31,), float32)

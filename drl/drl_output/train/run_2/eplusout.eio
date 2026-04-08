@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.04.08 10:44
+Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.04.08 15:27
 ! <Version>, Version ID
  Version, 25.1
 ! <Timesteps per Hour>, #TimeSteps, Minutes per TimeStep {minutes}
@@ -312,12 +312,12 @@ Environment:WarmupDays,  6
 ! <Tabular Report>,Style,Unit Conversion, Format Reals
 Tabular Report,HTML,None,Yes
 ! <Warmup Convergence Information>,Zone Name,Environment Type/Name,Average Warmup Temperature Difference {deltaC},Std Dev Warmup Temperature Difference {deltaC},Max Temperature Pass/Fail Convergence,Min Temperature Pass/Fail Convergence,Average Warmup Load Difference {W},Std Dev Warmup Load Difference {W},Heating Load Pass/Fail Convergence,Cooling Load Pass/Fail Convergence
- Warmup Convergence Information,PLENUM-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,8.6258561644E-002,6.5438196201E-002,Pass,Pass,0.0000000000,0.0000000000,Pass,Pass
- Warmup Convergence Information,SPACE1-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,1.3131319927,1.0727287043,Pass,Pass,8.1719346837,48.6457884271,Pass,Pass
- Warmup Convergence Information,SPACE2-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,1.3339596864,1.1003587972,Pass,Pass,34.4525270211,286.8243741491,Pass,Pass
- Warmup Convergence Information,SPACE3-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,1.3147731540,1.0752521452,Pass,Pass,22.2613701225,171.5287582906,Pass,Pass
- Warmup Convergence Information,SPACE4-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,1.3327967500,1.0980226910,Pass,Pass,34.1401918625,283.5359951971,Pass,Pass
- Warmup Convergence Information,SPACE5-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,1.2275847838,1.0366225567,Pass,Pass,11.8908956333,42.1748608050,Pass,Pass
+ Warmup Convergence Information,PLENUM-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,2.3620499249E-002,1.9773419039E-002,Pass,Pass,0.0000000000,0.0000000000,Pass,Pass
+ Warmup Convergence Information,SPACE1-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,0.2475406184,0.2119647707,Pass,Pass,7.3618459908E-002,6.1228396038E-002,Pass,Pass
+ Warmup Convergence Information,SPACE2-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,0.2478367093,0.2121443558,Pass,Pass,7.6931605839E-002,6.5031713844E-002,Pass,Pass
+ Warmup Convergence Information,SPACE3-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,0.2480064795,0.2123869487,Pass,Pass,7.3864311792E-002,6.1810671802E-002,Pass,Pass
+ Warmup Convergence Information,SPACE4-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,0.2478318315,0.2121396431,Pass,Pass,7.7056577022E-002,6.4829355210E-002,Pass,Pass
+ Warmup Convergence Information,SPACE5-1 THERMAL ZONE,RunPeriod: RUN PERIOD 1,0.2544577884,0.2153340417,Pass,Pass,0.1014855999,8.1759323579E-002,Pass,Pass
 ! <Program Control Information:Threads/Parallel Sims>, Threading Supported,Maximum Number of Threads, Env Set Threads (OMP_NUM_THREADS), EP Env Set Threads (EP_OMP_NUM_THREADS), IDF Set Threads, Number of Threads Used (Interior Radiant Exchange), Number Nominal Surfaces, Number Parallel Sims
 Program Control Information:Threads/Parallel Sims, No,1, N/A, N/A, N/A, N/A, N/A, N/A
 End of Data
