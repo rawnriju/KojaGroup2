@@ -1,0 +1,16 @@
+ ReadVarsESO
+ processing:..\DOAS_wNeutralSupplyAir_wFanCoilUnits.rvi
+ input file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train\run_2\eplusout.eso
+ output file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train\run_2\eplusout.csv
+ getting all vars from:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train\run_2\eplusout.eso
+  number variables requested for output=          80
+ ReadVars Run Time=00hr 00min  4.64sec
+ ReadVarsESO program completed successfully.
+ ReadVarsESO
+ processing:..\DOAS_wNeutralSupplyAir_wFanCoilUnits.mvi
+ input file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train\run_2\eplusout.mtr
+ output file:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train\run_2\eplusmtr.csv
+ getting all vars from:C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train\run_2\eplusout.mtr
+  number variables requested for output=           8
+ ReadVars Run Time=00hr 00min  0.64sec
+ ReadVarsESO program completed successfully.

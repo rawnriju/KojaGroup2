@@ -16,3 +16,32 @@
 2026-04-08 15:52:13 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
 2026-04-08 15:52:13 | INFO     | Output path: C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train
 2026-04-08 15:52:13 | INFO     | EnergyPlus handles initialized
+2026-04-08 15:56:32 | INFO     | ---------- reset -----------
+2026-04-08 15:56:32 | INFO     | Joining previous EnergyPlus thread …
+2026-04-08 15:56:38 | INFO     | EnergyPlus finished with exit code 0
+2026-04-08 15:56:38 | INFO     | Starting new EnergyPlus run
+2026-04-08 15:56:38 | INFO     | Starting EnergyPlus simulation
+2026-04-08 15:56:38 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 15:56:38 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 15:56:38 | INFO     | Output path: C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train
+2026-04-08 15:56:38 | INFO     | EnergyPlus handles initialized
+2026-04-08 16:02:32 | INFO     | ---------- reset -----------
+2026-04-08 16:02:32 | INFO     | Joining previous EnergyPlus thread …
+2026-04-08 16:02:38 | INFO     | EnergyPlus finished with exit code 0
+2026-04-08 16:02:38 | INFO     | Starting new EnergyPlus run
+2026-04-08 16:02:38 | INFO     | Starting EnergyPlus simulation
+2026-04-08 16:02:38 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 16:02:38 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 16:02:38 | INFO     | Output path: C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\train
+2026-04-08 16:02:38 | INFO     | EnergyPlus handles initialized
+2026-04-08 16:04:48 | INFO     | action_space: Box(-1.0, 1.0, (4,), float32)
+2026-04-08 16:04:48 | INFO     | observation_space: Box(-1.0, 1.0, (31,), float32)
+2026-04-08 16:04:49 | INFO     | ---------- reset -----------
+2026-04-08 16:04:49 | INFO     | Starting new EnergyPlus run
+2026-04-08 16:04:49 | INFO     | Starting EnergyPlus simulation
+2026-04-08 16:04:49 | INFO     | IDF: ..\DOAS_wNeutralSupplyAir_wFanCoilUnits.idf
+2026-04-08 16:04:49 | INFO     | Weather: ..\FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw
+2026-04-08 16:04:49 | INFO     | Output path: C:\Users\Siyar\Desktop\Geek\Github Repositories\KojaGroup2\drl_simple\drl_simple_output\eval
+2026-04-08 16:04:49 | INFO     | EnergyPlus handles initialized
+2026-04-08 16:05:50 | INFO     | Closing EnergyPlusEnv
+2026-04-08 16:05:56 | INFO     | EnergyPlus finished with exit code 0
