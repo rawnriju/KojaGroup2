@@ -28,16 +28,15 @@ from imitation.data.types import Transitions
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.abspath(os.path.join(_HERE, ".."))
 _DRL = os.path.join(_REPO, "drl")
-# drl/ also has feature_extractors.py — put this package first so our Transformer wins.
+# Load train_drl + eplus_sim from sibling drl/ (do not insert drl before the script dir
+# or ``import feature_extractors`` inside train_drl would be ambiguous).
 if _DRL not in sys.path:
-    sys.path.insert(0, _DRL)
-if _HERE not in sys.path:
-    sys.path.insert(0, _HERE)
+    sys.path.append(_DRL)
 
 import train_drl as td  # noqa: E402
 from eplus_sim import EnergyPlusEnv, FrameStackWrapper  # noqa: E402
 
-from feature_extractors import TransformerFeatureExtractor  # noqa: E402
+from transformer_encoder import TransformerFeatureExtractor  # noqa: E402
 
 
 # --- Transformer + temporal context ------------------------------------------------
@@ -47,7 +46,7 @@ NHEAD = 4
 TRANSFORMER_LAYERS = 2
 DIM_FEEDFORWARD = 256
 
-BC_EPOCHS = 500
+BC_EPOCHS = 50
 BC_LR = 2e-4
 
 SAC_FROZEN_STEPS = 3_000

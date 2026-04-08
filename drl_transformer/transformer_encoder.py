@@ -1,4 +1,8 @@
-"""Transformer over frame-stacked observations for Stable-Baselines3 SAC."""
+"""Transformer over frame-stacked observations for Stable-Baselines3 SAC.
+
+Named ``transformer_encoder`` (not ``feature_extractors``) so imports never clash
+with ``drl/feature_extractors.py`` when ``drl/`` is on ``sys.path``.
+"""
 
 import torch
 import torch.nn as nn

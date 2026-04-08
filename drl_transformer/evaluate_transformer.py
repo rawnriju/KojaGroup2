@@ -18,9 +18,7 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.abspath(os.path.join(_HERE, ".."))
 _DRL = os.path.join(_REPO, "drl")
 if _DRL not in sys.path:
-    sys.path.insert(0, _DRL)
-if _HERE not in sys.path:
-    sys.path.insert(0, _HERE)
+    sys.path.append(_DRL)
 
 import train_drl as td  # noqa: E402
 
