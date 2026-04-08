@@ -192,3 +192,6 @@
 2026-04-08 14:09:50 | INFO     | EnergyPlus handles initialized
 2026-04-08 14:10:43 | INFO     | Closing EnergyPlusEnv
 2026-04-08 14:10:48 | INFO     | EnergyPlus finished with exit code 0
+2026-04-08 15:13:01 | INFO     | action_space: Box(-1.0, 1.0, (4,), float32)
+2026-04-08 15:13:01 | INFO     | observation_space: Box(-1.0, 1.0, (31,), float32)
+2026-04-08 15:13:02 | INFO     | Closing EnergyPlusEnv
