@@ -35,7 +35,9 @@ from eplus_sim import EnergyPlusEnv
 
 IDF_FILE     = os.path.join("..", "DOAS_wNeutralSupplyAir_wFanCoilUnits.idf")
 WEATHER_FILE = os.path.join("..", "FIN_TR_Tampere.Satakunnankatu.027440_TMYx.2004-2018.epw")
-EXPERT_JSON  = "expert_data.json"
+##EXPERT_JSON  = "expert_data.json"
+# Generate with: python generate_expert_best_v1.py (uses best_v1_7482eur PARAMS)
+EXPERT_JSON = os.path.join(os.path.dirname(__file__), "expert_data_best_v1.json")
 MODEL_DIR    = "models"
 TRAIN_OUT    = "drl_output/train"
 EVAL_OUT     = "drl_output/train_eval"
