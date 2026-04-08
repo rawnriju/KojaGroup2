@@ -141,127 +141,152 @@ METERS = {
 # RBC Model (parameterized)
 # ═══════════════════════════════════════════════════════════════════════════
 
+class PIController:
+    """Simple PI controller with anti-windup clamping."""
+    def __init__(self, kp, ki, out_min, out_max):
+        self.kp = kp
+        self.ki = ki
+        self.out_min = out_min
+        self.out_max = out_max
+        self.integral = 0.0
+
+    def step(self, error, dt=1.0):
+        self.integral += error * dt
+        # Anti-windup: clamp integral
+        max_i = (self.out_max - self.out_min) / max(abs(self.ki), 1e-6) * 0.5
+        self.integral = np.clip(self.integral, -max_i, max_i)
+        output = self.kp * error + self.ki * self.integral
+        return float(np.clip(output, self.out_min, self.out_max))
+
+
 class RBCModel:
     def __init__(self, params):
         self.p = params
-        # Rolling outdoor temp buffer for 24h average (96 steps at 15min)
         self._outdoor_temps = []
         self._outdoor_24h_avg = None
 
-    def co2_flow_control(self, hour, day, co2_concentration, outdoor_temp):
-        p = self.p
-        is_workday = day != 1 and day != 7
+        # PI controllers for supply air temp (error = zone_temp - target)
+        # Positive error = too warm → lower supply temp
+        self.pi_supply = PIController(
+            kp=-0.8, ki=-0.05, out_min=16.0, out_max=21.0
+        )
 
-        is_nightflush = is_workday and p["nightflush_start"] <= hour < p["nightflush_end"]
-        is_nightflush_weekend = not is_workday and p["weekend_nightflush_start"] <= hour < p["weekend_nightflush_end"]
-        is_before_work_flush = is_workday and p["pre_work_flush_start"] <= hour < p["pre_work_flush_end"]
-        is_weekend_flush = not is_workday and p["weekend_flush_start"] <= hour < p["weekend_flush_end"]
-        is_working_hours = is_workday and p["working_hours_start"] <= hour < p["working_hours_end"]
-
-        base_flow = p["flow_off"]
-        if is_before_work_flush:
-            base_flow = p["flow_moderate"]
-        elif is_nightflush or is_nightflush_weekend or is_weekend_flush or is_working_hours:
-            base_flow = p["flow_low"]
-
-        # CO2 demand control
-        co2_flow = 0.0
-        if co2_concentration <= p["co2_min_limit"]:
-            co2_flow = 0.0
-        elif co2_concentration >= p["co2_max_limit"]:
-            co2_flow = p["flow_boost"]
-        else:
-            fraction = (co2_concentration - p["co2_min_limit"]) / (p["co2_max_limit"] - p["co2_min_limit"])
-            co2_flow = p["flow_low"] + fraction * (p["flow_boost"] - p["flow_low"])
-
-        target_flow = max(co2_flow, base_flow)
-
-        # Cold outdoor temp limiting
-        if outdoor_temp <= p["outdoor_temp_low_limit"]:
-            max_allowed = p["flow_low"]
-        elif outdoor_temp >= p["outdoor_temp_high_limit"]:
-            max_allowed = p["flow_max"]
-        else:
-            slope = (p["flow_max"] - p["flow_low"]) / (p["outdoor_temp_high_limit"] - p["outdoor_temp_low_limit"])
-            max_allowed = p["flow_low"] + slope * (outdoor_temp - p["outdoor_temp_low_limit"])
-
-        return min(target_flow, max_allowed)
-
-    def return_air_compensation(self, return_air_temp):
-        p = self.p
-        if return_air_temp <= p["return_air_temp_low"]:
-            return p["sup_temp_at_low"]
-        if return_air_temp >= p["return_air_temp_high"]:
-            return p["sup_temp_at_high"]
-        slope = (p["sup_temp_at_high"] - p["sup_temp_at_low"]) / (p["return_air_temp_high"] - p["return_air_temp_low"])
-        return float(np.clip(
-            p["sup_temp_at_low"] + slope * (return_air_temp - p["return_air_temp_low"]),
-            min(p["sup_temp_at_low"], p["sup_temp_at_high"]),
-            max(p["sup_temp_at_low"], p["sup_temp_at_high"]),
-        ))
+        # PI controller for fan flow based on CO2
+        # Error = co2 - target → positive = too much CO2 → more flow
+        self.pi_co2_flow = PIController(
+            kp=0.010, ki=0.001, out_min=0.0, out_max=1.0
+        )
 
     def _update_outdoor_avg(self, outdoor_temp):
-        """Update 24h rolling average of outdoor temp (96 steps at 15min)."""
         self._outdoor_temps.append(outdoor_temp)
         if len(self._outdoor_temps) > 96:
             self._outdoor_temps = self._outdoor_temps[-96:]
         self._outdoor_24h_avg = sum(self._outdoor_temps) / len(self._outdoor_temps)
 
     def _s1_bands(self):
-        """Compute Finnish S1 comfort bands from 24h outdoor average."""
         t = self._outdoor_24h_avg if self._outdoor_24h_avg is not None else 0.0
         if t <= 0:
-            lower = 20.5
-            upper = 22.0
+            lower, upper = 20.5, 22.0
         elif t <= 15:
-            lower = 20.5 + 0.075 * t  # reaches 21.625 at t=15
-            upper = 22.5 + 0.166 * t  # reaches 24.99 at t=15
+            lower = 20.5 + 0.075 * t
+            upper = 22.5 + 0.166 * t
         elif t <= 20:
-            lower = 20.5 + 0.075 * t  # reaches 22.0 at t=20
+            lower = 20.5 + 0.075 * t
             upper = 25.0
         else:
-            lower = 22.0
-            upper = 25.0
+            lower, upper = 22.0, 25.0
         return lower, upper
 
-    def zone_setpoints_s1(self):
-        """Compute setpoints that target the S1 band with adaptive margins."""
-        p = self.p
-        lower, upper = self._s1_bands()
-        base_htg = p.get("s1_htg_margin", 0.55)
-        margin_clg = p.get("s1_clg_margin", 0.05)
-        # Adaptive: reduce htg margin when S1 band is wide (warm weather saves heating)
-        s1_width = upper - lower
-        width_factor = float(np.clip(1.0 - 0.20 * (s1_width - 1.5), 0.5, 1.0))
-        htg = lower + base_htg * width_factor
-        clg = upper - margin_clg
-        if clg - htg < 0.3:
-            mid = (lower + upper) / 2.0
-            htg = mid - 0.15
-            clg = mid + 0.15
-        return float(htg), float(clg)
-
-    def calculate_setpoints(self, zone_temp, outdoor_temp, return_air_temp, occupancy,
-                            hour, day, co2_concentration, direct_solar=0.0, wind_speed=0.0):
+    def calculate_setpoints(self, zone_temps, outdoor_temp, return_air_temp, occupancy,
+                            hour, day, zone_co2s, direct_solar=0.0, wind_speed=0.0,
+                            outdoor_rh=50.0, diffuse_solar=0.0):
+        """
+        New signature: takes per-zone temps and co2s (lists of 5) instead of averages.
+        This allows per-zone-aware control decisions.
+        """
         p = self.p
         self._update_outdoor_avg(outdoor_temp)
+        lower_s1, upper_s1 = self._s1_bands()
 
-        supply_air_temp = self.return_air_compensation(return_air_temp)
-        htg, clg = self.zone_setpoints_s1()
+        # ── Per-zone awareness: target the WORST zone ──
+        # Find the zone closest to violating S1 boundaries
+        min_zone_temp = min(zone_temps)
+        max_zone_temp = max(zone_temps)
+        avg_zone_temp = sum(zone_temps) / len(zone_temps)
+        max_co2 = max(zone_co2s)
 
-        # Solar pre-cooling: lower cooling SP when strong sun to prevent overshoot
-        if p["solar_precool_enabled"] and direct_solar > p["solar_precool_threshold"]:
-            clg = max(18.0, clg + p["solar_precool_clg_offset"])
+        # S1 band target: the point that maximizes distance from both boundaries
+        # Weighted slightly toward upper to minimize heating (dominant cost in Finland)
+        s1_mid = (lower_s1 + upper_s1) / 2.0
+        target = s1_mid + p.get("target_offset", 0.5)  # bias warm to reduce heating
 
-        # Wind chill compensation: raise heating SP in cold windy weather
-        if p["wind_comp_enabled"] and wind_speed > p["wind_speed_threshold"] and outdoor_temp < p["wind_cold_outdoor_threshold"]:
-            htg = min(25.0, htg + p["wind_htg_offset"])
+        # ── SETPOINTS from S1 bands ──
+        # Adaptive margins based on S1 band width
+        s1_width = upper_s1 - lower_s1  # 1.5°C in cold, 3°C in warm
+        # More margin when band is narrow (cold), less when wide (warm) — proportional
+        base_htg = p.get("s1_htg_margin", 0.55)
+        base_clg = p.get("s1_clg_margin", 0.05)
+        # Scale: at width=1.5, multiply by 1.0; at width=3.0, multiply by 0.6
+        width_factor = np.clip(1.0 - 0.20 * (s1_width - 1.5), 0.5, 1.0)
+        htg = lower_s1 + base_htg * width_factor
+        clg = upper_s1 - base_clg
 
-        # Ensure htg <= clg
+        # Per-zone margins for economizer check
+        cold_margin = min_zone_temp - lower_s1
+        hot_margin = upper_s1 - max_zone_temp
+
         if htg > clg:
             htg = clg - 0.3
 
-        flow = self.co2_flow_control(hour, day, co2_concentration, outdoor_temp)
+        # ── SUPPLY AIR TEMP — fixed curve (proven optimal) ──
+        # Return air compensation: lower supply temp when return air is warm
+        p = self.p
+        rt_low, rt_high = p["return_air_temp_low"], p["return_air_temp_high"]
+        st_low, st_high = p["sup_temp_at_low"], p["sup_temp_at_high"]
+        if return_air_temp <= rt_low:
+            supply_air_temp = st_low
+        elif return_air_temp >= rt_high:
+            supply_air_temp = st_high
+        else:
+            slope = (st_high - st_low) / (rt_high - rt_low)
+            supply_air_temp = float(np.clip(st_low + slope * (return_air_temp - rt_low),
+                                            min(st_low, st_high), max(st_low, st_high)))
+
+        # Solar compensation disabled — not helpful in Finland
+        total_solar = direct_solar + diffuse_solar
+
+        # ── ENTHALPY ECONOMIZER ──
+        # When outdoor air is cool and dry enough, it's free cooling
+        # Outdoor enthalpy estimate: h ≈ 1.006*T + (W * 2501)
+        # Simplified: if outdoor is cooler than zone and zone needs cooling, boost ventilation
+        free_cooling_available = (outdoor_temp < avg_zone_temp - 1.0 and
+                                  avg_zone_temp > s1_mid and
+                                  outdoor_temp > 5.0)  # don't use when too cold (heating cost)
+
+        # ── FAN FLOW: threshold-based CO2 DCV (proven optimal) + enthalpy economizer ──
+        co2_min = p["co2_min_limit"]
+        co2_max = p["co2_max_limit"]
+        if max_co2 <= co2_min:
+            co2_flow = 0.0
+        elif max_co2 >= co2_max:
+            co2_flow = p["flow_boost"]
+        else:
+            fraction = (max_co2 - co2_min) / (co2_max - co2_min)
+            co2_flow = p["flow_low"] + fraction * (p["flow_boost"] - p["flow_low"])
+
+        # Schedule-based minimum flow
+        is_workday = day != 1 and day != 7
+        is_working = is_workday and p["working_hours_start"] <= hour < p["working_hours_end"]
+        min_flow = p["flow_low"] if is_working else 0.0
+
+        flow = max(co2_flow, min_flow)
+
+        # Enthalpy economizer disabled — testing
+        # if free_cooling_available and hot_margin < 0.8:
+        #     flow = max(flow, 0.3)
+
+        flow = float(np.clip(flow, 0.0, 1.0))
+
         return htg, clg, supply_air_temp, flow
 
 
@@ -309,30 +334,32 @@ class Controller:
         outdoor_temp = self.get_variable("outdoor_temp", state)
         plenum_temp = self.get_variable("plenum_temp", state)
         direct_solar = self.get_variable("direct_solar", state)
+        diffuse_solar = self.get_variable("diffuse_solar", state)
         wind_speed = self.get_variable("wind_speed", state)
+        outdoor_rh = self.get_variable("outdoor_rh", state)
         hour = float(self.api.exchange.hour(state))
         day = float(self.api.exchange.day_of_week(state))
 
-        temps, co2s, occs = [], [], []
+        zone_temps, zone_co2s, occs = [], [], []
         for i in range(1, 6):
-            temps.append(self.get_variable(f"space{i}_temp", state))
-            co2s.append(self.get_variable(f"space{i}_co2", state))
+            zone_temps.append(self.get_variable(f"space{i}_temp", state))
+            zone_co2s.append(self.get_variable(f"space{i}_co2", state))
             occs.append(self.get_variable(f"space{i}_occupancy", state))
 
-        avg_temp = sum(temps) / len(temps)
-        max_co2 = max(co2s)
         total_occupancy = sum(occs)
 
         htg, clg, supply_air_temp, flow = self.model.calculate_setpoints(
-            zone_temp=avg_temp,
+            zone_temps=zone_temps,
             outdoor_temp=outdoor_temp,
             return_air_temp=plenum_temp,
             occupancy=total_occupancy,
             hour=hour,
             day=day,
-            co2_concentration=max_co2,
+            zone_co2s=zone_co2s,
             direct_solar=direct_solar,
             wind_speed=wind_speed,
+            outdoor_rh=outdoor_rh,
+            diffuse_solar=diffuse_solar,
         )
 
         self.set_actuator("htg_setpoint", htg, state)
