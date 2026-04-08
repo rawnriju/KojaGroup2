@@ -1,0 +1,9 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+eplus_out/
+*.csv
+*.err
+*.sql
+.ipynb_checkpoints/
